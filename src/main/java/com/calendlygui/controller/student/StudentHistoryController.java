@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
-public class StudentHistoryController {
+public class StudentHistoryController {/*
     @FXML
     private Button appointmentButton;
 
@@ -80,5 +80,5 @@ public class StudentHistoryController {
             CalendlyApplication.user = null;
         }
         Controller.navigateToOtherStage(logoutButton, "login.fxml", "Login");
-    }
+    }*/
 }

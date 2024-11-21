@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
-public class StudentSettingController {
+public class StudentSettingController {/*
     @FXML
     private Button appointmentButton;
 
@@ -81,4 +81,5 @@ public class StudentSettingController {
         Controller.navigateToOtherStage(timeslotButton,"student-timeslot.fxml","New meeting");
 
     }
+    */
 }

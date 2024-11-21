@@ -123,42 +123,40 @@ public class RegisterController implements Initializable {
         }
         Thread receiveThread = new Thread(() -> {
             try {
-       
-                String response ;
-
+                String response;
                 while ((response = in.readLine()) != null) {
                     response = response.replaceAll(NON_PRINTABLE_CHARACTER,"");
-                    System.out.println("Raw Response: " + response);  // Log raw response
+                    System.out.println("Response: " + response);
                     String[] info = response.split(COMMAND_DELIMITER);
-                    if (info.length == 0) {
-                        System.out.println("Received an invalid response: " + response);
+                    if (Integer.parseInt(info[0]) == AUTHENTICATE_SUCCESS) {
+                        CalendlyApplication.user = extractUserFromResponse(response);
+                        navigateToHomePage();
+                        System.out.println(RegisterMessage.REGISTER_SUCCESS);
                     } else {
-                        System.out.println("Parsed response: " + Arrays.toString(info));  // Log parsed response
-                        if (info[0] != null && !info[0].isEmpty()) {
-                            int code = Integer.parseInt(info[0]);
-                            switch (code) {
-                                case AUTHENTICATE_SUCCESS:
-                                    // Handle success
-                                    break;
-                                case ACCOUNT_EXIST:
-                                    showErrorFromServerToUIAndConsole(RegisterMessage.REGISTER_EMAIL_EXIST);
-                                    break;
-                                case SQL_ERROR:
-                                    showErrorFromServerToUIAndConsole(GeneralMessage.SERVER_WRONG);
-                                    break;
-                                default:
-                                    showErrorFromServerToUIAndConsole(GeneralMessage.UNKNOWN_ERROR);
-                                    break;
+                        int code = Integer.parseInt(info[0]);
+                        switch (code) {
+                            case ACCOUNT_EXIST: {
+                                //System.out.println(RegisterMessage.REGISTER_EMAIL_EXIST);
+                                showErrorFromServerToUIAndConsole(RegisterMessage.REGISTER_EMAIL_EXIST);
+                                break;
                             }
-                        } else {
-                            System.out.println("Invalid response: info[0] is empty.");
+                            case SQL_ERROR: {
+                                //System.out.println(GeneralMessage.SERVER_WRONG);
+                                showErrorFromServerToUIAndConsole(GeneralMessage.SERVER_WRONG);
+                                break;
+                            }
+                            case UNDEFINED_ERROR: {
+                                //System.out.println(GeneralMessage.UNKNOWN_ERROR);
+                                showErrorFromServerToUIAndConsole(GeneralMessage.UNKNOWN_ERROR);
+                                break;
+                            }
                         }
                     }
                 }
             } catch (IOException e) {
                 System.out.println(e.getMessage());
                 CalendlyApplication.shutdown();
-            } catch (NumberFormatException e) {
+            } catch (ParseException | NumberFormatException e) {
                 throw new RuntimeException(e);
             }
         });

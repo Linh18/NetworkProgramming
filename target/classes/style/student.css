@@ -4,7 +4,7 @@
     -fx-font-size: 14px;
 }
 .menu-button:hover {
-    -fx-background-color:#d11b59;
+    -fx-background-color:#454445;
     -fx-cursor: hand;
 }
 

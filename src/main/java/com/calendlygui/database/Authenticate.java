@@ -62,7 +62,7 @@ public class Authenticate {
 
 
         return createResponseWithUser(
-                AUTHENTICATE_SUCCESS,
+        		CREATE_SUCCESS,
                 id,
                 name,
                 email,

@@ -108,7 +108,7 @@
             </children></VBox>
         <Pane layoutX="250.0" prefHeight="550.0" prefWidth="650.0">
          <children>
-            <ImageView fx:id="avatarImage" fitHeight="160.0" fitWidth="160.0" layoutX="463.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="avatarImage" fitHeight="126.0" fitWidth="116.0" layoutX="35.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../assets/avatar/male.png" />
                </image>
@@ -118,7 +118,7 @@
                   <Font size="25.0" />
                </font>
             </Text>
-            <Pane layoutX="35.0" layoutY="152.0" prefHeight="285.0" prefWidth="392.0" style="-fx-background-color: grey; -fx-background-radius: 10;">
+            <Pane layoutX="35.0" layoutY="200.0" prefHeight="285.0" prefWidth="392.0" style="-fx-background-color: grey; -fx-background-radius: 5;">
                <children>
                   <Label layoutX="20.0" layoutY="30.0" style="-fx-font-weight: bold;" text="Username" textFill="WHITE">
                      <font>

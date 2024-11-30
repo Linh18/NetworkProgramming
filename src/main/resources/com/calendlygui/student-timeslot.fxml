@@ -16,9 +16,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calendlygui.controller.student.StudentTimeslotController">
+<AnchorPane prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calendlygui.controller.student.StudentTimeslotController">
     <children>
-        <VBox prefHeight="550.0" prefWidth="250.0" style="-fx-background-color: #e91e63;">
+        <VBox prefHeight="550.0" prefWidth="250.0" style="-fx-background-color: grey; -fx-border-width: 10px;">
             <children>
                 <Pane prefHeight="200.0" prefWidth="250.0">
                     <children>
@@ -110,16 +110,16 @@
                     </padding>
                 </Button>
             </children></VBox>
-        <Pane layoutX="250.0" prefHeight="550.0" prefWidth="650.0" style="-fx-background-color: #fff59d;">
+        <Pane layoutX="250.0" prefHeight="550.0" prefWidth="650.0">
             <children>
-                <TableView fx:id="meetingTable" layoutX="40.0" layoutY="181.0" prefHeight="298.0" prefWidth="570.0">
+                <TableView fx:id="meetingTable" layoutX="40.0" layoutY="144.0" prefHeight="359.0" prefWidth="570.0">
                     <columns>
                         <TableColumn fx:id="teacherTableColumn" prefWidth="94.0" text="Teacher" />
                         <TableColumn fx:id="dateTableColumn" prefWidth="80.66665649414062" text="Date" />
-                        <TableColumn fx:id="beginTableColumn" prefWidth="50.6666259765625" text="Begin" />
-                        <TableColumn fx:id="endTableColumn" prefWidth="50.6666259765625" text="End" />
-                        <TableColumn fx:id="typeTableColumn" prefWidth="83.3333740234375" text="Classification" />
-                  <TableColumn fx:id="meetingNameTableColumn" prefWidth="208.66668701171875" text="Name" />
+                        <TableColumn fx:id="beginTableColumn" prefWidth="61.600067138671875" text="Begin" />
+                        <TableColumn fx:id="endTableColumn" prefWidth="61.5999755859375" text="End" />
+                        <TableColumn fx:id="typeTableColumn" prefWidth="116.800048828125" text="Classification" />
+                  <TableColumn fx:id="meetingNameTableColumn" prefWidth="156.7999267578125" text="Meeting Name" />
                     </columns>
                 </TableView>
             <Pane fx:id="detailPane" layoutX="40.0" layoutY="120.0" prefHeight="393.0" prefWidth="570.0" style="-fx-background-color: #eee7de; -fx-background-radius: 5; -fx-border-color: black; -fx-border-radius: 5;" visible="false">
@@ -153,25 +153,22 @@
                   </ComboBox>
                </children>
             </Pane>
-            <Pane prefHeight="100.0" prefWidth="650.0" style="-fx-background-color: #9f7b48;">
+            <Pane prefHeight="100.0" prefWidth="650.0" style="-fx-background-color: #2a2929;">
                <children>
-                  <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="561.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../assets/logo/logo9.png" />
-                     </image>
-                  </ImageView>
-                  <Text fill="WHITE" layoutX="228.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Teacher's time slot">
+                  <Text fill="WHITE" layoutX="228.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Teacher's time slot">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Text>
+                  <TextField fx:id="textfill" layoutX="179.0" layoutY="56.0" prefHeight="35.0" prefWidth="292.0" promptText="Search for the teacher's name here ..." />
+                  <Button fx:id="search" layoutX="413.0" layoutY="61.0" mnemonicParsing="false" onMouseClicked="#searchTeacher" prefHeight="16.0" prefWidth="52.0" style="-fx-background-color: white;" text="Search" />
                </children>
             </Pane>
             <Text fx:id="meetingDetailErrorText" fill="RED" layoutX="40.0" layoutY="501.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="569.9999999999999" />
             <Text fx:id="errorText" fill="RED" layoutX="40.0" layoutY="501.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="569.9999999999999" />
-            <Button fx:id="reloadButton" layoutX="600.0" layoutY="115.0" mnemonicParsing="false" onMouseClicked="#reload" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: black;" styleClass="reload-button" stylesheets="@../../style/general.css" textFill="WHITE">
+            <Button fx:id="reloadButton" layoutX="594.0" layoutY="108.0" mnemonicParsing="false" onMouseClicked="#reload" prefHeight="3.0" prefWidth="32.0" style="-fx-background-color: black;" styleClass="reload-button" stylesheets="@../../style/general.css" textFill="WHITE">
                <graphic>
-                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="13.0" fitWidth="11.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/icon/reload.png" />
                      </image>

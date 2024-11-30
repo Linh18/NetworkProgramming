@@ -149,6 +149,18 @@ public class Manipulate {
             out.println(CLIENT_MISSING_INFO);
         }
     }
+    public static void viewAvaiforname(String[] data) {
+    	 if (data.length == 2) {
+             String username = data[1];
+
+             String result = handleViewAvailforname(username);
+             System.out.println("Result: " + result);
+             out.println(result);
+         } else {
+             out.println(CLIENT_MISSING_INFO);
+         }
+		
+	}
 
     public static void scheduleMeeting(String[] data) {
         if (data.length == 4) {

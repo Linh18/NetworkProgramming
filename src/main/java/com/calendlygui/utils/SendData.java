@@ -41,6 +41,10 @@ public class SendData {
         request = createRequest(STUDENT_VIEW_TIMESLOT, new ArrayList<>(List.of(String.valueOf(sId))));
         out.println(request);
     }
+    public static void viewAvaiforname(PrintWriter out, String username) {
+        request = createRequest(SEARCH, new ArrayList<>(List.of(String.valueOf(username))));
+        out.println(request);
+    }
 
     public static void scheduleMeeting(PrintWriter out, int sId, int mId, String type) throws IOException, ParseException {
         // /STUDENT_SCHEDULE_INDIVIDUAL_MEETING student_id  meeting_id

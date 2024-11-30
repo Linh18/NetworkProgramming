@@ -15,7 +15,7 @@
 }
 
 .profile-text-field {
-    -fx-background-color: #680d2c;
+    -fx-background-color: black;
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }

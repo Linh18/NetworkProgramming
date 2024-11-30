@@ -238,14 +238,14 @@ public class ServerHandler {
             String getAlreadyScheduledMeetingIds = "select * from " + PARTICIPATE + " where " + STUDENT_ID + " = ?";
             PreparedStatement getAlreadyScheduledMeetingIdPs = conn.prepareStatement(getAlreadyScheduledMeetingIds);
             getAlreadyScheduledMeetingIdPs.setInt(1, sId);
-            System.out.println(getAlreadyScheduledMeetingIdPs);
+            //System.out.println(getAlreadyScheduledMeetingIdPs);
 
             ResultSet getAlreadyScheduledMeetingIdRs = getAlreadyScheduledMeetingIdPs.executeQuery();
             ArrayList<Integer> scheduledMeetingIds = new ArrayList<>();
             while (getAlreadyScheduledMeetingIdRs.next()) {
                 scheduledMeetingIds.add(getAlreadyScheduledMeetingIdRs.getInt(MEETING_ID));
             }
-            System.out.println("Scheduled: " + scheduledMeetingIds.size());
+           // System.out.println("Scheduled: " + scheduledMeetingIds.size());
 
             //query available slots and exclude those above
 //            String query = "select m.*, u." + NAME + " as " + TEACHER_NAME + " from " + MEETING + " m join " + USERS + " u on m." + MEETING_TEACHER_ID + " = u." + ID + " where " +  MEETING_OCCUR + " > CURRENT_TIMESTAMP and " + SELECTED_CLASSIFICATION + " != ?";
@@ -263,7 +263,7 @@ public class ServerHandler {
                 ps.setInt(i + 4, scheduledMeetingIds.get(i));
             }
 
-            System.out.println(ps);
+            //System.out.println(ps);
 
             ResultSet rs = ps.executeQuery();
             ArrayList<Meeting> meetings = getMeetings(rs, conn);
@@ -272,6 +272,33 @@ public class ServerHandler {
         } catch (SQLException e) {
             System.out.println(SQL_EXCEPTION + ": " + e.getMessage());
             return String.valueOf(SQL_ERROR);
+        }
+    }
+    public static String handleViewAvailforname(String username) {
+        try {
+            // Chỉ truy vấn các buổi họp có trạng thái pending và xảy ra trong tương lai
+            String query = "SELECT m.*, u." + NAME + " AS " + TEACHER_NAME + " " +
+                           "FROM " + MEETING + " m " +
+                           "JOIN " + USERS + " u ON m." + MEETING_TEACHER_ID + " = u." + ID + " " +
+                           "WHERE u." + NAME + " = ? " +
+                           "AND m." + MEETING_OCCUR + " > CURRENT_TIMESTAMP " +
+                           "AND m." + STATUS + " = ?";
+
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, username); // Truyền username của giáo viên
+            ps.setString(2, PENDING);  // Chỉ lấy các buổi họp có trạng thái "pending"
+
+            ResultSet rs = ps.executeQuery();
+
+            // Chuyển đổi ResultSet thành danh sách các buổi họp
+            ArrayList<Meeting> meetings = getMeetings(rs, conn);
+
+            // Trả về danh sách các buổi họp có trạng thái pending
+            return createResponseWithMeetingList(QUERY_SUCCESS, meetings);
+        } catch (SQLException e) {
+            // Ghi log và trả về lỗi nếu xảy ra vấn đề với cơ sở dữ liệu
+            System.out.println(SQL_EXCEPTION + ": " + e.getMessage());
+            return createResponse(SQL_ERROR, "Database error occurred while fetching available slots.");
         }
     }
 

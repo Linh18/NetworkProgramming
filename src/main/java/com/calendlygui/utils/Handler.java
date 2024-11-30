@@ -421,6 +421,25 @@ public class Handler implements Runnable {
             }
         }
     }
+    void handleStudentViewAvailforname(BufferedReader in, PrintWriter out, String username) throws IOException, ParseException {
+        request = createRequest(SEARCH, new ArrayList<>(List.of(String.valueOf(username))));
+        out.println(request);
+        //listen to response
+        while (true) {
+            response = in.readLine();
+            if (response != null) {
+                System.out.println(response);
+
+                String[] info = response.split(COMMAND_DELIMITER);
+                if (Integer.parseInt(info[0]) == QUERY_SUCCESS) {
+                    ArrayList<Meeting> meetings = extractMeetingsFromResponse(response);
+                    System.out.println(meetings.size());
+                    for (Meeting meeting : meetings) System.out.println(meeting);
+                    break;
+                } else handleErrorResponse(info[0]);
+            }
+        }
+    }
 
     void handleStudentScheduleMeeting(BufferedReader in, PrintWriter out, int sId, int mId, String type) throws IOException, ParseException {
 //        /STUDENT_SCHEDULE_INDIVIDUAL_MEETING student_id  meeting_id

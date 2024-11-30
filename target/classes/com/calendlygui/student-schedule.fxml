@@ -17,9 +17,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calendlygui.controller.student.StudentScheduleController">
+<AnchorPane prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calendlygui.controller.student.StudentScheduleController">
     <children>
-        <VBox prefHeight="550.0" prefWidth="250.0" style="-fx-background-color: #e91e63;">
+        <VBox prefHeight="550.0" prefWidth="250.0" style="-fx-background-color: grey;">
             <children>
                 <Pane prefHeight="200.0" prefWidth="250.0">
                     <children>
@@ -111,9 +111,9 @@
                     </padding>
                 </Button>
             </children></VBox>
-        <Pane layoutX="250.0" prefHeight="550.0" prefWidth="650.0" style="-fx-background-color: #fff59d;">
+        <Pane layoutX="250.0" prefHeight="550.0" prefWidth="650.0">
             <children>
-            <Pane prefHeight="100.0" prefWidth="650.0" style="-fx-background-color: #9f7b48;">
+            <Pane prefHeight="100.0" prefWidth="650.0" style="-fx-background-color: black;">
                <children>
                   <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="561.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
                      <image>

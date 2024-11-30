@@ -7,6 +7,8 @@ import com.calendlygui.model.entity.Meeting;
 import com.calendlygui.utils.Controller;
 import com.calendlygui.utils.Format;
 import com.calendlygui.utils.SendData;
+
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -247,7 +249,9 @@ public class StudentScheduleController implements Initializable {
                         meetings = extractMeetingsFromResponse(response);
                         for(Meeting meeting: meetings) System.out.println(meeting);
                         try{
-                            filterCombobox.setValue("All");
+                        	Platform.runLater(() -> {
+                            	filterCombobox.setValue("All");
+                            });
                         }catch(Exception ignored){}
 
                         filterDatetime.setVisible(false);

@@ -9,6 +9,8 @@ import com.calendlygui.model.entity.Meeting;
 import com.calendlygui.utils.Controller;
 import com.calendlygui.utils.Format;
 import com.calendlygui.utils.SendData;
+
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -500,7 +502,11 @@ public class TeacherAppointmentController implements Initializable {
 //        ObservableList<Meeting> initData = FXCollections.observableArrayList(meetings);
 //        meetingTable.setItems(initData);
         try {
-            filterCombobox.setValue("All");
+            
+            Platform.runLater(() -> {
+            	filterCombobox.setValue("All");
+            });
+
         } catch (Exception ignored) {
         }
 

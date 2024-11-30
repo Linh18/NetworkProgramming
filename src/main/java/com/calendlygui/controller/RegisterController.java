@@ -105,6 +105,7 @@ public class RegisterController implements Initializable {
         if (dealWithErrorMessageFromUI(email, username, password, confirmedPassword)) {
             try {
                 SendData.register(out, email, username, password, isMale, isTeacher);
+                Controller.navigateToOtherStage(signInLabel, "login.fxml", "Login",email);
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println(e.getMessage());
             }

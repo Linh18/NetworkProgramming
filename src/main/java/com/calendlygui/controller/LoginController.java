@@ -39,6 +39,10 @@ public class LoginController implements Initializable {
     @FXML
     private TextField emailTextField;
 
+    public void setEmail(String email) {
+        emailTextField.setText(email);
+    }
+
     @FXML
     private Text passwordText;
 

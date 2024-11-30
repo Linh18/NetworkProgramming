@@ -1,6 +1,8 @@
 package com.calendlygui.utils;
 
 import com.calendlygui.CalendlyApplication;
+import com.calendlygui.controller.LoginController;
+
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -43,7 +45,11 @@ public class Controller {
         });
     }
 
-    public static void navigateToOtherStage(Label label , String fxmlFile, String title) {
+    public static void navigateToOtherStage(Label label, String fxmlFile, String title) {
+        navigateToOtherStage(label, fxmlFile, title, null); // Call the overloaded method with `null` for email
+    }
+    
+    public static void navigateToOtherStage(Label label , String fxmlFile, String title, String email) {
         //Allow to execute a Runnable object in the JavaFX Application Thread asynchronously
         Platform.runLater(() -> {
             try {
@@ -52,6 +58,10 @@ public class Controller {
                 Scene scene = new Scene(loader.load());
                 stage.setTitle(title);
                 stage.setScene(scene);
+                Object controller = loader.getController();
+                if (controller instanceof LoginController) { // Replace LoginController with your target controller class
+                ((LoginController) controller).setEmail(email); // Call the method to set the email
+            }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

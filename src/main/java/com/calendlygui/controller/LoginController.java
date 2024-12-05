@@ -98,7 +98,8 @@ public class LoginController implements Initializable {
                 String response;
                 while (!(response = in.readLine()).isEmpty()) {
                     response = response.replaceAll(NON_PRINTABLE_CHARACTER,"");
-                    System.out.println("Response: " + response);
+                    String Displayresponse = response.replaceAll("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}(\\.\\d+)?;", "");
+                    System.out.println("Response: " + Displayresponse);
                     String[] info = response.split(COMMAND_DELIMITER);
                     int code = Integer.parseInt(info[0]);
                     if (code == AUTHENTICATE_SUCCESS) {

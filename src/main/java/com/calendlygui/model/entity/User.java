@@ -10,6 +10,16 @@ public class User implements Serializable {
     Timestamp registerDatetime;
     boolean isTeacher;
     boolean gender;
+    private String token; // Token được lưu ở đây
+
+        // Getter và Setter cho token
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
 
     public String getUsername() {
         return username;

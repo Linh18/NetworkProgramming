@@ -1,4 +1,5 @@
 package com.calendlygui.controller.student;
+import com.calendlygui.CalendlyApplication;
 
 import com.calendlygui.CalendlyApplication;
 import com.calendlygui.utils.Controller;
@@ -91,7 +92,9 @@ public class StudentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(CalendlyApplication.user != null)
+    	 String token = CalendlyApplication.token;
+    	if(CalendlyApplication.user != null)
+           
             nameText.setText(CalendlyApplication.user.getUsername() + "!");
     }
 }

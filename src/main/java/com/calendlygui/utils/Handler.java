@@ -1,5 +1,6 @@
 package com.calendlygui.utils;
 
+import com.calendlygui.CalendlyApplication;
 import com.calendlygui.constant.ConstantValue;
 import com.calendlygui.model.entity.Meeting;
 import com.calendlygui.model.entity.User;
@@ -25,6 +26,8 @@ public class Handler implements Runnable {
     private final InetAddress host;
     private boolean done;
     private User user;
+    String token = CalendlyApplication.token;
+
 
     private String response;
     private String request;
@@ -196,7 +199,7 @@ public class Handler implements Runnable {
     }
 
     void handleStudentViewScheduledMeeting(int sId) throws IOException, ParseException {
-        request = createRequest(STUDENT_VIEW_SCHEDULED, new ArrayList<>(List.of(String.valueOf(sId))));
+        request = createRequest(STUDENT_VIEW_SCHEDULED, new ArrayList<>(List.of(String.valueOf(sId))),token);
         out.println(request);
 
         while (true) {
@@ -216,11 +219,14 @@ public class Handler implements Runnable {
     }
 
     void handleTeacherViewScheduledMeetings(BufferedReader in, PrintWriter out, int tId) throws IOException, ParseException {
-        request = createRequest(TEACHER_VIEW_MEETING, new ArrayList<>(List.of(String.valueOf(tId))));
+        request = createRequest(TEACHER_VIEW_MEETING, new ArrayList<>(List.of(String.valueOf(tId))),token);
         out.println(request);
 
         while (true) {
+     
             response = in.readLine();
+            System.out.println("Raw Response: " + response);
+
 
             if (response != null) {
                 System.out.println(response);
@@ -236,7 +242,7 @@ public class Handler implements Runnable {
     }
 
     void handleLogin(BufferedReader in, PrintWriter out, String account, String password) throws IOException, ClassNotFoundException, ParseException {
-        request = createRequest(LOGIN, new ArrayList<>(List.of(account, password)));
+        request = createRequest(LOGIN, new ArrayList<>(List.of(account, password)),token);
         out.println(request);
 
         //listen to response
@@ -262,7 +268,7 @@ public class Handler implements Runnable {
         data.add(password);
         data.add(String.valueOf(isMale));
         data.add(String.valueOf(isTeacher));
-        request = createRequest(REGISTER, data);
+        request = createRequest(REGISTER, data,token);
         out.println(request);
 
         while (true) {
@@ -281,7 +287,7 @@ public class Handler implements Runnable {
     }
 
     private void handleCancelMeeting(BufferedReader in, PrintWriter out, int sId, int mId) throws IOException {
-        request = createRequest(STUDENT_CANCEL_MEETING, new ArrayList<>(List.of(String.valueOf(sId), String.valueOf(mId))));
+        request = createRequest(STUDENT_CANCEL_MEETING, new ArrayList<>(List.of(String.valueOf(sId), String.valueOf(mId))),token);
         out.println(request);
 
         while (true) {
@@ -300,7 +306,7 @@ public class Handler implements Runnable {
     void handleCreateMeeting(BufferedReader in, PrintWriter out, String name, String dateTime, String begin, String end, String classification, int tId) throws IOException, ClassNotFoundException {
         request = createRequest(
                 TEACHER_CREATE_MEETING,
-                new ArrayList<>(List.of(String.valueOf(tId), name, dateTime, begin, end, classification)));
+                new ArrayList<>(List.of(String.valueOf(tId), name, dateTime, begin, end, classification)),token);
         out.println(request);
 
         //listen to response
@@ -318,7 +324,7 @@ public class Handler implements Runnable {
 
     void handleEditMeeting(BufferedReader in, PrintWriter out, int id, String name, String dateTime, String begin, String end, String status, String classification, String selectedClassification, int tId) throws IOException, ClassNotFoundException {
         request = createRequest(TEACHER_EDIT_MEETING,
-                new ArrayList<>(List.of(String.valueOf(id), name, dateTime, begin, end, status, classification, selectedClassification, String.valueOf(tId))));
+                new ArrayList<>(List.of(String.valueOf(id), name, dateTime, begin, end, status, classification, selectedClassification, String.valueOf(tId))),token);
         out.println(request);
 
         while (true) {
@@ -335,7 +341,7 @@ public class Handler implements Runnable {
 
     void handleViewByDate(BufferedReader in, PrintWriter out, int tId, String date) throws IOException, ParseException {
         request = createRequest(TEACHER_VIEW_MEETING_BY_DATE,
-                new ArrayList<>(List.of(String.valueOf(tId), date)));
+                new ArrayList<>(List.of(String.valueOf(tId), date)),token);
         out.println(request);
 
         while (true) {
@@ -356,7 +362,7 @@ public class Handler implements Runnable {
 
     void handleAddMinute(BufferedReader in, PrintWriter out, int mId, String content) throws IOException {
 //        /TEACHER_ENTER_CONTENT  teacher_id  meeting_id  content
-        request = createRequest(TEACHER_ENTER_CONTENT, new ArrayList<>(List.of(String.valueOf(mId), content)));
+        request = createRequest(TEACHER_ENTER_CONTENT, new ArrayList<>(List.of(String.valueOf(mId), content)),token);
         out.println(request);
 
         //listen to response
@@ -375,7 +381,7 @@ public class Handler implements Runnable {
 
     void handleViewPastMeetings(BufferedReader in, PrintWriter out, int tId) {
         // TEACHER_VIEW_HISTORY  teacher_id
-        request = createRequest(TEACHER_VIEW_HISTORY, new ArrayList<>(List.of(String.valueOf(tId))));
+        request = createRequest(TEACHER_VIEW_HISTORY, new ArrayList<>(List.of(String.valueOf(tId))),token);
         out.println(request);
 
         try {
@@ -403,7 +409,7 @@ public class Handler implements Runnable {
 
     //student
     void handleStudentViewAvailableSlots(BufferedReader in, PrintWriter out, int sId) throws IOException, ParseException {
-        request = createRequest(STUDENT_VIEW_TIMESLOT, new ArrayList<>(List.of(String.valueOf(sId))));
+        request = createRequest(STUDENT_VIEW_TIMESLOT, new ArrayList<>(List.of(String.valueOf(sId))),token);
         out.println(request);
         //listen to response
         while (true) {
@@ -422,7 +428,7 @@ public class Handler implements Runnable {
         }
     }
     void handleStudentViewAvailforname(BufferedReader in, PrintWriter out, String username) throws IOException, ParseException {
-        request = createRequest(SEARCH, new ArrayList<>(List.of(String.valueOf(username))));
+        request = createRequest(SEARCH, new ArrayList<>(List.of(String.valueOf(username))),token);
         out.println(request);
         //listen to response
         while (true) {
@@ -443,7 +449,7 @@ public class Handler implements Runnable {
 
     void handleStudentScheduleMeeting(BufferedReader in, PrintWriter out, int sId, int mId, String type) throws IOException, ParseException {
 //        /STUDENT_SCHEDULE_INDIVIDUAL_MEETING student_id  meeting_id
-        request = createRequest(STUDENT_SCHEDULE_MEETING, new ArrayList<>(List.of(String.valueOf(sId), String.valueOf(mId), type)));
+        request = createRequest(STUDENT_SCHEDULE_MEETING, new ArrayList<>(List.of(String.valueOf(sId), String.valueOf(mId), type)),token);
         out.println(request);
 
         while (true) {
@@ -462,7 +468,7 @@ public class Handler implements Runnable {
 
     void handleStudentViewByWeek(BufferedReader in, PrintWriter out, int sId, String beginDate, String endDate) throws IOException, ParseException {
 //        /STUDENT_VIEW_MEETING_BY_WEEK student_id  begin_date end_date
-        request = createRequest(STUDENT_VIEW_MEETING_BY_WEEK, new ArrayList<>(List.of(String.valueOf(sId), beginDate, endDate)));
+        request = createRequest(STUDENT_VIEW_MEETING_BY_WEEK, new ArrayList<>(List.of(String.valueOf(sId), beginDate, endDate)),token);
         out.println(request);
 
         while (true) {

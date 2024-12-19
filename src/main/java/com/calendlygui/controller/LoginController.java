@@ -39,6 +39,10 @@ public class LoginController implements Initializable {
     @FXML
     private TextField emailTextField;
 
+    public void setEmail(String email) {
+        emailTextField.setText(email);
+    }
+
     @FXML
     private Text passwordText;
 
@@ -65,11 +69,7 @@ public class LoginController implements Initializable {
         String password = passwordTextField.getText();
 
         if (dealWithErrorMessageFromUI(email, password)) {
-            try {
-                SendData.login(out, email, password);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
+            SendData.login(out, email, password);
         }
     }
 
@@ -94,7 +94,8 @@ public class LoginController implements Initializable {
                 String response;
                 while (!(response = in.readLine()).isEmpty()) {
                     response = response.replaceAll(NON_PRINTABLE_CHARACTER,"");
-                    System.out.println("Response: " + response);
+                    String Displayresponse = response.replaceAll("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}(\\.\\d+)?;", "");
+                    System.out.println("Response: " + Displayresponse);
                     String[] info = response.split(COMMAND_DELIMITER);
                     int code = Integer.parseInt(info[0]);
                     if (code == AUTHENTICATE_SUCCESS) {

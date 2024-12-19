@@ -148,12 +148,9 @@ public class TeacherTimeslotController implements Initializable {
         String beginTime = beginTextField.getText();
         String endTime = endTextField.getText();
         String classification = classificationComboBox.getValue().toLowerCase();
+        String token = CalendlyApplication.token;
         if (dealWithErrorMessageFromUI(meetingTime, beginTime, endTime, meetingName)) {
-            try {
-                SendData.createMeeting(out, meetingName, Format.getStringFormatFromLocalDate(meetingTime), beginTime, endTime, classification, CalendlyApplication.user.getId());
-            } catch (IOException | ClassNotFoundException e) {
-                System.out.println(e.getMessage());
-            }
+            SendData.createMeeting(out, meetingName, Format.getStringFormatFromLocalDate(meetingTime), beginTime, endTime, classification, CalendlyApplication.user.getId(),token);
         }
     }
 

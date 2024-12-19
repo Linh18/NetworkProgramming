@@ -57,12 +57,6 @@ public class StudentTimeslotController implements Initializable {
     private Button scheduleButton;
 
     @FXML
-    private Button settingButton;
-
-    @FXML
-    private Button teacherListButton;
-
-    @FXML
     private Button timeslotButton;
 
     @FXML
@@ -104,11 +98,7 @@ public class StudentTimeslotController implements Initializable {
         Controller.navigateToOtherStage(logoutButton, "login.fxml", "Login");
     }
 
-    @FXML
-    void navigateTeacherList(MouseEvent event) {
-        Controller.navigateToOtherStage(teacherListButton, "student-teacher-list.fxml", "Teacher List");
-    }
-
+   
     @FXML
     void navigateToAppointment(MouseEvent event) {
         Controller.navigateToOtherStage(appointmentButton, "student-appointment.fxml", "Appointment");
@@ -134,11 +124,7 @@ public class StudentTimeslotController implements Initializable {
         Controller.navigateToOtherStage(scheduleButton, "student-schedule.fxml", "Schedule");
     }
 
-    @FXML
-    void navigateToSetting(MouseEvent event) {
-        Controller.navigateToOtherStage(settingButton, "student-setting.fxml", "Setting");
-    }
-
+   
     @FXML
     void navigateToTimeslot(MouseEvent event) {
     }
@@ -195,8 +181,9 @@ public class StudentTimeslotController implements Initializable {
     @FXML
     void searchTeacher(MouseEvent event) throws IOException {
         String username = textfill.getText().trim();
+        String token = CalendlyApplication.token;
         if (!username.isEmpty()) {
-            SendData.viewAvaiforname(out, username); // Gọi SendData để gửi yêu cầu
+            SendData.viewAvaiforname(out, username, token); // Gọi SendData để gửi yêu cầu
         } else {
             errorText.setText("Please enter a teacher's name to search.");
         }
@@ -205,7 +192,8 @@ public class StudentTimeslotController implements Initializable {
     @FXML
     void joinMeeting(MouseEvent event) throws IOException, ParseException {
         String type = classificationCombobox.getValue().toLowerCase();
-        SendData.scheduleMeeting(out, CalendlyApplication.user.getId(), currentMeeting.getId(), type);
+        String token = CalendlyApplication.token;
+        SendData.scheduleMeeting(out, CalendlyApplication.user.getId(), currentMeeting.getId(), type,token);
     }
 
     @Override
@@ -226,8 +214,8 @@ public class StudentTimeslotController implements Initializable {
         typeTableColumn.setCellValueFactory(data -> new SimpleStringProperty(Format.writeFirstCharacterInUppercase(data.getValue().getClassification())));
         meetingNameTableColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
 
-
-        SendData.viewAvailableSlots(out, CalendlyApplication.user.getId());
+        String token = CalendlyApplication.token;
+        SendData.viewAvailableSlots(out, CalendlyApplication.user.getId(),token);
 
         Thread receiveThread = getReceiveThread();
         receiveThread.start();

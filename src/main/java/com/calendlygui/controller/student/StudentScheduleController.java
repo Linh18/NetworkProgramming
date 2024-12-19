@@ -189,7 +189,8 @@ public class StudentScheduleController implements Initializable {
 
     @FXML
     void cancelMeeting(MouseEvent event) {
-        SendData.cancelMeeting(out, CalendlyApplication.user.getId(), currentMeeting.getId());
+    	String token = CalendlyApplication.token;
+        SendData.cancelMeeting(out, CalendlyApplication.user.getId(), currentMeeting.getId(),token);
     }
 
     @FXML
@@ -215,7 +216,8 @@ public class StudentScheduleController implements Initializable {
         }
 
         Controller.changeFormatForDatepicker(filterDatetime);
-        SendData.viewScheduledMeeting(out, CalendlyApplication.user.getId());
+        String token = CalendlyApplication.token;
+        SendData.viewScheduledMeeting(out, CalendlyApplication.user.getId(),token);
 
         Thread receiveThread = getReceiveThread();
         receiveThread.start();

@@ -13,7 +13,7 @@ import static com.calendlygui.utils.Helper.createResponse;
 
 public class Manipulate {
 
-    public static void register(String[] registerInfo, PrintWriter out) {
+    public static void register(String[] registerInfo, String token, PrintWriter out) {
         if (registerInfo.length == 6) {
             if ((!registerInfo[4].equals("false") && !registerInfo[4].equals("true") || !registerInfo[5].equals("false") && !registerInfo[5].equals("true")) && !Validate.checkEmailFormat(registerInfo[1])) {
                 out.println(INCORRECT_FORMAT);
@@ -33,7 +33,7 @@ public class Manipulate {
         }
     }
 
-    public static void signIn(String[] loginInfo, PrintWriter out) {
+    public static void signIn(String[] loginInfo, String token,PrintWriter out) {
         if (loginInfo.length == 3) {
             String email = loginInfo[1];
             String password = loginInfo[2];
@@ -47,7 +47,7 @@ public class Manipulate {
     }
 
     //TEACHER FUNCTIONS
-    public static void createMeeting(String[] data) {
+    public static void createMeeting(String[] data, String token) {
         if (data.length == 7) {
             int tId = Integer.parseInt(data[1]);
             String name = data[2];
@@ -65,7 +65,7 @@ public class Manipulate {
     }
 
 
-    public static void editMeeting(String[] data) {
+    public static void editMeeting(String[] data, String token) {
         if (data.length == 10) {
             int id = Integer.parseInt(data[1]);
             String name = data[2];
@@ -85,7 +85,7 @@ public class Manipulate {
         }
     }
 
-    public static void viewByDate(String[] data) {
+    public static void viewByDate(String[] data, String token) {
         if (data.length == 3) {
             int tId = Integer.parseInt(data[1]);
             String date = data[2];
@@ -98,7 +98,7 @@ public class Manipulate {
         }
     }
 
-    public static void viewUnscheduledAndHappeningMeetings(String[] data) {
+    public static void viewUnscheduledAndHappeningMeetings(String[] data, String token) {
         if (data.length == 2) {
             int tId = Integer.parseInt(data[1]);
 
@@ -110,7 +110,7 @@ public class Manipulate {
         }
     }
 
-    public static void addMinute(String[] data) {
+    public static void addMinute(String[] data, String token) {
         if (data.length == 3) {
 //            int tId = Integer.parseInt(data[1]);
             int mId = Integer.parseInt(data[1]);
@@ -124,7 +124,7 @@ public class Manipulate {
         }
     }
 
-    public static void viewHistory(String[] data) {
+    public static void viewHistory(String[] data, String token) {
         if (data.length == 2) {
             int tId = Integer.parseInt(data[1]);
 
@@ -139,7 +139,7 @@ public class Manipulate {
 
 
     //STUDENT FUNCTIONS
-    public static void viewAvailableSlots(String[] data) {
+    public static void viewAvailableSlots(String[] data, String token) {
         if (data.length == 2) {
             int sId = Integer.parseInt(data[1]);
             String result = handleViewAvailableSlots(sId);
@@ -149,7 +149,7 @@ public class Manipulate {
             out.println(CLIENT_MISSING_INFO);
         }
     }
-    public static void viewAvaiforname(String[] data) {
+    public static void viewAvaiforname(String[] data, String token) {
     	 if (data.length == 2) {
              String username = data[1];
 
@@ -162,7 +162,7 @@ public class Manipulate {
 		
 	}
 
-    public static void scheduleMeeting(String[] data) {
+    public static void scheduleMeeting(String[] data, String token) {
         if (data.length == 4) {
             int sId = Integer.parseInt(data[1]);
             int mId = Integer.parseInt(data[2]);
@@ -176,7 +176,7 @@ public class Manipulate {
         }
     }
 
-    public static void viewByWeek(String[] data) {
+    public static void viewByWeek(String[] data, String token) {
         if (data.length == 4) {
             int sId = Integer.parseInt(data[1]);
             String beginDate = data[2];
@@ -190,7 +190,7 @@ public class Manipulate {
         }
     }
 
-    public static void cancelMeeting(String[] data) {
+    public static void cancelMeeting(String[] data, String token) {
         if (data.length == 3) {
             int sId = Integer.parseInt(data[1]);
             int mId = Integer.parseInt(data[2]);
@@ -203,7 +203,7 @@ public class Manipulate {
         }
     }
 
-    public static void viewScheduled(String[] data) {
+    public static void viewScheduled(String[] data, String token) {
         if (data.length == 2) {
             int sId = Integer.parseInt(data[1]);
 

@@ -25,7 +25,6 @@ import java.util.ResourceBundle;
 import static com.calendlygui.CalendlyApplication.in;
 import static com.calendlygui.CalendlyApplication.out;
 import static com.calendlygui.constant.ConstantValue.*;
-import static com.calendlygui.constant.ConstantValue.UNDEFINED_ERROR;
 import static com.calendlygui.utils.Helper.extractUserFromResponse;
 
 public class RegisterController implements Initializable {
@@ -103,11 +102,8 @@ public class RegisterController implements Initializable {
         boolean isMale = gender.getSelectedToggle().equals(maleGender);
         boolean isTeacher = occupation.getSelectedToggle().equals(teacherOccupation);
         if (dealWithErrorMessageFromUI(email, username, password, confirmedPassword)) {
-            try {
-                SendData.register(out, email, username, password, isMale, isTeacher);
-            } catch (IOException | ClassNotFoundException e) {
-                System.out.println(e.getMessage());
-            }
+            SendData.register(out, email, username, password, isMale, isTeacher);
+			Controller.navigateToOtherStage(signInLabel, "login.fxml", "Login",email);
         }
     }
 
@@ -126,7 +122,9 @@ public class RegisterController implements Initializable {
                 String response;
                 while ((response = in.readLine()) != null) {
                     response = response.replaceAll(NON_PRINTABLE_CHARACTER,"");
-                    System.out.println("Response: " + response);
+                    String[] parts = response.split(";");
+                    String Displayresponse = parts[0] + ";" + parts[3];
+                    System.out.println("Response: " + Displayresponse);
                     String[] info = response.split(COMMAND_DELIMITER);
                     if (Integer.parseInt(info[0]) == AUTHENTICATE_SUCCESS) {
                         CalendlyApplication.user = extractUserFromResponse(response);

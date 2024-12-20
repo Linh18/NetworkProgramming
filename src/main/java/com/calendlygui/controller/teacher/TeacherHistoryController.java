@@ -104,6 +104,9 @@ public class TeacherHistoryController implements Initializable {
 
     @FXML
     private TableColumn<Meeting, String> statusTableColumn;
+    
+    @FXML
+    private TableColumn<Meeting, String> nameTableColumn;
 
     @FXML
     private TableView<Content> contentTable;
@@ -335,6 +338,7 @@ public class TeacherHistoryController implements Initializable {
     }
 
     private void showHistory() {
+        nameTableColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
         beginTableColumn.setCellValueFactory(data -> new SimpleStringProperty(Format.getStringFormatFromTimestamp(data.getValue().getOccurDatetime(), "HH:mm")));
         endTableColumn.setCellValueFactory(data -> new SimpleStringProperty(Format.getStringFormatFromTimestamp(data.getValue().getFinishDatetime(), "HH:mm")));
         selectedTypeTableColumn.setCellValueFactory(data -> new SimpleStringProperty(Objects.equals(data.getValue().getSelectedClassification(), "null") ? "Not yet" : Format.writeFirstCharacterInUppercase(data.getValue().getSelectedClassification())));

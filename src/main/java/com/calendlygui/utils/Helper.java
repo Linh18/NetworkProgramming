@@ -38,13 +38,23 @@ public class Helper {
         return res;
     }
 
-    public static String createRequest(String command, ArrayList<String> data) {
+    public static String createRequest(String command, ArrayList<String> data, String token) {
         StringBuilder request = new StringBuilder();
         request.append("/").append(command);
-        for (String _data : data) request.append(COMMAND_DELIMITER).append(_data);
-        
+
+        // Thêm token vào sau command
+        if (token != null && !token.isEmpty()) {
+            request.append(COMMAND_DELIMITER).append(token);
+        }
+
+        // Thêm các dữ liệu còn lại
+        for (String _data : data) {
+            request.append(COMMAND_DELIMITER).append(_data);
+        }
+
         return request.toString();
     }
+
 
     public static String createResponse(int code, String message) {
         return code + COMMAND_DELIMITER + message;

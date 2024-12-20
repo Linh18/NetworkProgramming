@@ -69,11 +69,7 @@ public class LoginController implements Initializable {
         String password = passwordTextField.getText();
 
         if (dealWithErrorMessageFromUI(email, password)) {
-            try {
-                SendData.login(out, email, password);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
-            }
+            SendData.login(out, email, password);
         }
     }
 

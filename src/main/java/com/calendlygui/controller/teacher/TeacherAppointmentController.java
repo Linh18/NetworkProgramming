@@ -64,12 +64,6 @@ public class TeacherAppointmentController implements Initializable {
     private Button profileButton;
 
     @FXML
-    private Button settingButton;
-
-    @FXML
-    private Button studentListButton;
-
-    @FXML
     private Button timeslotButton;
 
     @FXML
@@ -217,16 +211,6 @@ public class TeacherAppointmentController implements Initializable {
     }
 
     @FXML
-    void navigateToSetting(MouseEvent event) {
-        Controller.navigateToOtherStage(settingButton, "teacher-setting.fxml", "Setting");
-    }
-
-    @FXML
-    void navigateToStudentList(MouseEvent event) {
-        Controller.navigateToOtherStage(studentListButton, "teacher-student-list.fxml", "Student List");
-    }
-
-    @FXML
     void navigateToTimeslot(MouseEvent event) {
         Controller.navigateToOtherStage(timeslotButton, "teacher-timeslot.fxml", "New meeting");
     }
@@ -247,19 +231,20 @@ public class TeacherAppointmentController implements Initializable {
         String classification = typeCombobox.getValue().toLowerCase();
         String selectedClassification = Objects.equals(selectedTypeTextField.getText(), "Not yet") ? "" : selectedTypeTextField.getText().toLowerCase();
         String status = statusTextField.getText().toLowerCase();
-
+        String token = CalendlyApplication.token;
         if (dealWithErrorMessageFromUI(occurDate, beginTime, endTime, meetingName)) {
-            SendData.editMeeting(out, currentMeeting.getId(), meetingName, Format.getStringFormatFromLocalDate(occurDate), beginTime, endTime, status, classification, selectedClassification, CalendlyApplication.user.getId());
+            SendData.editMeeting(out, currentMeeting.getId(), meetingName, Format.getStringFormatFromLocalDate(occurDate), beginTime, endTime, status, classification, selectedClassification, CalendlyApplication.user.getId(),token);
         }
     }
 
     @FXML
     void addContent(MouseEvent event) {
+    	String token = CalendlyApplication.token;
         if (contentTextArea.getText().isEmpty()) {
             contentErrorText.setText(GeneralMessage.REQUIRED_FIELD);
         } else {
             contentErrorText.setText("");
-            SendData.addContent(out, currentMeeting.getId(), contentTextArea.getText());
+            SendData.addContent(out, currentMeeting.getId(), contentTextArea.getText(),token);
         }
     }
 
@@ -285,8 +270,9 @@ public class TeacherAppointmentController implements Initializable {
             System.out.println(e.getMessage());
             CalendlyApplication.shutdown();
         }
+        String token = CalendlyApplication.token;
 
-        SendData.viewStudentScheduledMeetings(out, CalendlyApplication.user.getId());
+        SendData.viewStudentScheduledMeetings(out, CalendlyApplication.user.getId(),token);
 
         Thread receiveThread = getReceiveThread();
         receiveThread.start();

@@ -82,16 +82,6 @@ public class TeacherProfileController implements Initializable {
     }
 
     @FXML
-    void navigateToSetting(MouseEvent event) {
-        Controller.navigateToOtherStage(settingButton,"teacher-setting.fxml","Setting");
-    }
-
-    @FXML
-    void navigateToStudentList(MouseEvent event) {
-        Controller.navigateToOtherStage(studentListButton,"teacher-student-list.fxml","Student List");
-    }
-
-    @FXML
     void navigateToTimeslot(MouseEvent event) {
         Controller.navigateToOtherStage(timeslotButton,"teacher-timeslot.fxml","New meeting");
     }

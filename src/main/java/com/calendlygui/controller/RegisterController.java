@@ -102,12 +102,8 @@ public class RegisterController implements Initializable {
         boolean isMale = gender.getSelectedToggle().equals(maleGender);
         boolean isTeacher = occupation.getSelectedToggle().equals(teacherOccupation);
         if (dealWithErrorMessageFromUI(email, username, password, confirmedPassword)) {
-            try {
-                SendData.register(out, email, username, password, isMale, isTeacher);
-                Controller.navigateToOtherStage(signInLabel, "login.fxml", "Login",email);
-            } catch (IOException | ClassNotFoundException e) {
-                System.out.println(e.getMessage());
-            }
+            SendData.register(out, email, username, password, isMale, isTeacher);
+			Controller.navigateToOtherStage(signInLabel, "login.fxml", "Login",email);
         }
     }
 

@@ -226,11 +226,12 @@ public class TeacherHistoryController implements Initializable {
 
     @FXML
     void addContent(MouseEvent event) {
+    	String token = CalendlyApplication.token;
         if (contentTextArea.getText().isEmpty()) {
             contentErrorText.setText(GeneralMessage.REQUIRED_FIELD);
         } else {
             contentErrorText.setText("");
-            SendData.addContent(out, currentMeeting.getId(), contentTextArea.getText());
+            SendData.addContent(out, currentMeeting.getId(), contentTextArea.getText(),token);
         }
     }
 
@@ -261,8 +262,8 @@ public class TeacherHistoryController implements Initializable {
             System.out.println(e.getMessage());
             CalendlyApplication.shutdown();
         }
-
-        SendData.viewHistory(out, CalendlyApplication.user.getId());
+        String token = CalendlyApplication.token;
+        SendData.viewHistory(out, CalendlyApplication.user.getId(),token);
 
         Thread receiveThread = getReceiveThread();
         receiveThread.start();

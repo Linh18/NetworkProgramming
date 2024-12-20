@@ -1,3 +1,11 @@
 *.class
 
 /*.class
+
+/target
+
+/target/*
+
+/target/
+
+target/

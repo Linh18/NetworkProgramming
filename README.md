@@ -11,6 +11,15 @@ The application provides a range of features tailored for both students and teac
 Clone this project and run locally, the User Interface design is very human and easy to use without any instruction
 
 ### Prerequisites
+Here is the translation of your request into English:
+
+1. **Install Java Development Kit (JDK)**:  
+   Since the application is developed in Java, you need to install the Java Development Kit (JDK).  
+
+2. **Install PostgreSQL** (as the application uses PostgreSQL database):  
+   You need to install PostgreSQL to connect to and manage the database.  
+   After installation, you will need to configure the database and create the necessary tables for the application. This information can be found in the Java files or detailed instructions in the project documentation.
+
 
 Here is a step-by-step guide for running your application based on the steps you provided:
 
@@ -24,10 +33,16 @@ Here is a step-by-step guide for running your application based on the steps you
 ### Step 3: Determine the IP Address of the Server (for Demo on Multiple Machines)
 1. Open the command prompt on Windows.
 2. Type the following command to get the IP address:
+
+   Windows
    ```
    ipconfig
    ```
-3. Find the **IPv4 Address** for your network adapter. This is the IP address of the machine.
+   Linux
+   ```
+   ifconfig
+   ```
+4. Find the **IPv4 Address** for your network adapter. This is the IP address of the machine.
 
 ### Step 4: Edit the `ConstantValue.java` File
 1. Open the `ConstantValue.java` file.

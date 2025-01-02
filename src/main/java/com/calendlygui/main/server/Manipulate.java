@@ -11,10 +11,11 @@ import static com.calendlygui.main.server.ServerHandler.*;
 import static com.calendlygui.utils.Helper.createResponse;
 
 
+
 public class Manipulate {
 
     
-
+    
     public static void register(String[] registerInfo, PrintWriter out) {
         if (registerInfo.length == 6) {
             if ((!registerInfo[4].equals("false") && !registerInfo[4].equals("true") || !registerInfo[5].equals("false") && !registerInfo[5].equals("true")) && !Validate.checkEmailFormat(registerInfo[1])) {
@@ -45,8 +46,10 @@ public class Manipulate {
         if (loginInfo.length == 3) {
             String email = loginInfo[1];
             String password = loginInfo[2];
-
+           
+            String token = Authenticate.gen_token(email);
             String result = Authenticate.signIn(email, password);
+            result = result + ";" + token ;
             System.out.println("Result: " + result);
             out.println(result);
         } else {

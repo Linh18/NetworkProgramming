@@ -189,14 +189,15 @@ public class Helper {
 
     public static User extractUserFromResponse(String response) throws ParseException {
         String[] data = response.split(COMMAND_DELIMITER);
-        if (data.length == 7) {
+        if (data.length == 8) {
             return new User(
                     Integer.parseInt(data[1]),
                     data[2],
                     data[3],
                     new Timestamp(formatter.parse(data[4]).getTime()),
                     Objects.equals(data[5], "true"),
-                    Objects.equals(data[6], "true")
+                    Objects.equals(data[6], "true"),
+                    data[7]
             );
         } else {
             // Xử lý lỗi nếu dữ liệu không đủ

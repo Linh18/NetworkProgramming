@@ -8,7 +8,61 @@ import java.util.Objects;
 import static com.calendlygui.constant.ConstantValue.*;
 import static com.calendlygui.utils.Helper.createResponseWithUser;
 
+
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import java.util.Base64;
+import java.time.Instant;
+
 public class Authenticate {
+
+    private static final SecretKey secretKey = new SecretKeySpec("1233213123123123".getBytes(), "AES");
+
+
+
+    // Method to generate a token
+    public static String gen_token(String email) {
+        try {
+            // Create a payload with email and timestamps
+            String payload = "{"
+                    + "\"email\":\"" + email + "\","
+                    + "\"issuedAt\":\"" + Instant.now().toString() + "\","
+                    + "\"expiry\":\"" + Instant.now().plusSeconds(3600).toString() + "\""
+                    + "}";
+
+            // Encrypt the payload using AES
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+            byte[] encryptedPayload = cipher.doFinal(payload.getBytes());
+
+            // Encode the encrypted payload to Base64 for safe transmission
+            return Base64.getEncoder().encodeToString(encryptedPayload);
+        } catch (Exception e) {
+            throw new RuntimeException("Error generating token: " + e.getMessage(), e);
+        }
+    }
+
+    // Method to verify a token
+    public static String verify_token(String token) {
+        try {
+            // Decode the Base64 token
+            byte[] decodedToken = Base64.getDecoder().decode(token);
+
+            // Decrypt the token using AES
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);
+            byte[] decryptedPayload = cipher.doFinal(decodedToken);
+
+            // Return the decrypted payload as a string
+            return new String(decryptedPayload);
+        } catch (Exception e) {
+            System.out.println("Invalid token: " + e.getMessage());
+            return null; // Return null if the token is invalid
+        }
+    }
+
+    
     public static String register(String email, String name, String password, boolean gender, boolean isTeacher) {
         Connection conn = SqlConnection.connect();
         String insertUserQuery = "insert into users(name,email,gender, is_teacher) values (? ,?, ?, ?) returning register_datetime";
@@ -112,5 +166,18 @@ public class Authenticate {
             return String.valueOf(INVALID_PASSWORD);
         }
         return createResponseWithUser(AUTHENTICATE_SUCCESS, id, username, email, registerDatetime.toString(), String.valueOf(isTeacher), String.valueOf(gender));
+    }
+
+    public static void main(String[] args) {
+        // Example email to generate a token
+        String email = "user@example.com";
+        
+        // Generate a token for the email
+        String token = gen_token(email);
+        System.out.println("Generated Token: " + token);
+        
+        // Verify the generated token
+        String decryptedPayload = verify_token(token);
+        System.out.println("Decrypted Payload: " + decryptedPayload);
     }
 }

@@ -149,7 +149,7 @@
                   <TableColumn fx:id="statusTableColumn" prefWidth="82.4000244140625" text="Status" />
                </columns>
             </TableView>
-            <Pane fx:id="detailPane" layoutX="40.0" layoutY="129.0" prefHeight="393.0" prefWidth="570.0" style="-fx-background-color: #eee7de; -fx-background-radius: 5; -fx-border-color: black; -fx-border-radius: 5;" visible="false">
+            <Pane fx:id="detailPane" layoutX="40.0" layoutY="129.0" prefHeight="393.0" prefWidth="570.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-color: black;" visible="false">
                <children>
                   <Text layoutX="84.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Created date" />
                   <TextField fx:id="beginTextField" editable="false" layoutX="180.0" layoutY="135.0" prefHeight="25.0" prefWidth="303.0" />
@@ -171,7 +171,7 @@
                   <Text layoutX="85.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Status" />
                   <TextField fx:id="statusTextField" editable="false" layoutX="180.0" layoutY="225.0" prefHeight="25.0" prefWidth="303.0" />
                   <Button fx:id="contentButton" layoutX="383.0" layoutY="336.0" mnemonicParsing="false" onMouseClicked="#openContentPane" prefHeight="30.0" prefWidth="124.0" style="-fx-font-weight: bold;" styleClass="content-button" stylesheets="@../../style/teacher.css" text="Content   " textFill="WHITE" />
-                  <Pane fx:id="contentPane" layoutX="63.0" layoutY="7.0" prefHeight="374.0" prefWidth="444.0" style="-fx-background-color: #f7f9e5; -fx-background-radius: 5; -fx-border-color: black; -fx-border-radius: 5;" visible="false">
+                  <Pane fx:id="contentPane" layoutX="63.0" layoutY="7.0" prefHeight="374.0" prefWidth="444.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-radius: 5;" visible="false">
                      <children>
                         <Text layoutX="184.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Content" textAlignment="CENTER">
                            <font>
@@ -206,7 +206,7 @@
                         <Image url="@../../assets/icon/right-arrow.png" />
                      </image>
                   </ImageView>
-                  <Pane fx:id="studentPane" layoutX="44.0" layoutY="7.0" prefHeight="374.0" prefWidth="476.0" style="-fx-background-color: #f7f9e5; -fx-border-color: black; -fx-border-radius: 5; -fx-background-radius: 5;" visible="false">
+                  <Pane fx:id="studentPane" layoutX="44.0" layoutY="7.0" prefHeight="374.0" prefWidth="476.0" style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5;" visible="false">
                      <children>
                         <Text layoutX="201.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Student" textAlignment="CENTER">
                            <font>

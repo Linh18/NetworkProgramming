@@ -5,10 +5,10 @@ import java.sql.*;
 public class SqlConnection {
 
     private final static String NW_DATABASE_NAME = "postgres";
-    private final static String NW_DATABASE_PASS = "181230";
+    private final static String NW_DATABASE_PASS = "postgres";
 
     public static Connection connect() {
-        String url = "jdbc:postgresql://localhost:1811/" + NW_DATABASE_NAME;
+        String url = "jdbc:postgresql://127.0.0.1:4000/" + NW_DATABASE_NAME;
         String user = "postgres";
         String password = NW_DATABASE_PASS;
         try {

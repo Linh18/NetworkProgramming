@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class CalendlyApplication extends Application {
     public static User user = null;
-    public static String token = generateToken(); // Lưu token xác thực
+    public static String token; // Lưu token xác thực
     public static Socket client;
 
     public static PrintWriter out;

@@ -9,7 +9,7 @@ import com.calendlygui.CalendlyApplication;
 
 import static com.calendlygui.constant.ConstantValue.*;
 import static com.calendlygui.utils.Helper.createRequest;
-
+import static com.calendlygui.utils.Helper.createRequest2222;
 public class SendData {
 
     private static String request;
@@ -22,7 +22,7 @@ public class SendData {
         data.add(account);
         data.add(password);
         String token = CalendlyApplication.token;
-        request = createRequest(LOGIN, data, token);
+        request = createRequest2222(LOGIN, data);
         out.println(request);
     }
 
@@ -35,7 +35,7 @@ public class SendData {
         data.add(isTeacher ? "true" : "false");
         String token = CalendlyApplication.token;
 
-        request = createRequest(REGISTER, data, token);
+        request = createRequest2222(REGISTER, data);
         out.println(request);
     }
 

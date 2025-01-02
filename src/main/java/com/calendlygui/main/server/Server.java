@@ -129,11 +129,8 @@ public class Server implements Runnable {
             if(data[0].contains(REGISTER) || data[0].contains(LOGIN)){
                 actualData = data ;
             }else{
-                System.out.print("token   : ");
-                System.out.println(generateToken());
+                Authenticate.verify_token(token);
             }
-            
-
             // Xử lý lệnh
             if (actualData[0].contains(REGISTER))                             Manipulate.register(actualData, out);
             else if (actualData[0].contains(LOGIN))                           Manipulate.signIn(actualData, out);

@@ -45,14 +45,15 @@ public class Helper {
         // Thêm token vào sau command
         if (token != null) {
             request.append(COMMAND_DELIMITER).append(token);
+        }else {
+            request.append(COMMAND_DELIMITER).append("ochk88zlMrV7sPxUb+Rrbjl6k0bkCKkkEYynG/+VLxnb/WZZuCyixL/RCXKr6v87SMZiZe1eUV8ZENrhu1nny1sN/OALQVPSrmqvm17qcWras7Ky56RFhCXjyOrxHvAe+9RtqHAnqT84gZrrLCTDnwmYHpQiNdXT7fSVHvEmrtY=");
         }
 
         // Thêm các dữ liệu còn lại
         for (String _data : data) {
             request.append(COMMAND_DELIMITER).append(_data);
         }
-        System.out.print("token  client : ");
-        System.out.print(token);
+       
         return request.toString();
     }
 

@@ -250,9 +250,31 @@ public class TeacherAppointmentController implements Initializable {
         String selectedClassification = Objects.equals(selectedTypeTextField.getText(), "Not yet") ? "" : selectedTypeTextField.getText().toLowerCase();
         String status = statusTextField.getText().toLowerCase();
         String token = CalendlyApplication.token;
+        if (!isValidTimeFormat(beginTime) || !isValidTimeFormat(endTime)) {
+            // Hiển thị thông báo lỗi nếu định dạng không hợp lệ
+            showErrorMessage("Time must be in the format HH:MM");
+            return;
+        }
+
         if (dealWithErrorMessageFromUI(occurDate, beginTime, endTime, meetingName)) {
             SendData.editMeeting(out, currentMeeting.getId(), meetingName, Format.getStringFormatFromLocalDate(occurDate), beginTime, endTime, status, classification, selectedClassification, CalendlyApplication.user.getId(),token);
         }
+    }
+    private boolean isValidTimeFormat(String time) {
+        // Kiểm tra định dạng HH:MM
+        String regex = "^(?:[01]\\d|2[0-3]):([0-5]\\d)$"; // Định dạng HH:MM
+        return time.matches(regex);
+    }
+
+    // Phương thức hiển thị thông báo lỗi
+    private void showErrorMessage(String message) {
+        // Hiển thị thông báo lỗi cho người dùng
+        // Ví dụ: bạn có thể sử dụng một Label hoặc một Alert để thông báo lỗi
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Invalid Input");
+        alert.setHeaderText("Error");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML
@@ -475,6 +497,7 @@ public class TeacherAppointmentController implements Initializable {
 //                    typeCombobox.getItems().add(Format.writeFirstCharacterInUppercase(rowData.getClassification()));
 //                    typeCombobox.setValue(Format.writeFirstCharacterInUppercase(rowData.getClassification()));
                     selectedTypeTextField.setText(Objects.equals(rowData.getSelectedClassification(), "null") ? "Not yet" : Format.writeFirstCharacterInUppercase(rowData.getSelectedClassification()));
+                    statusTextField.setText(Format.writeFirstCharacterInUppercase(rowData.getStatus()));
                     detailPane.setVisible(true);
 
                     if (!Objects.equals(rowData.getStatus(), READY)) {

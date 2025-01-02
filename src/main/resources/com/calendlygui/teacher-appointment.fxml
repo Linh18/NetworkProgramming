@@ -203,6 +203,7 @@
                   </Text>
                   <Text layoutX="120.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Name" />
                   <TextField fx:id="nameTextField" editable="false" layoutX="181.0" layoutY="43.0" prefHeight="25.0" prefWidth="323.0" />
+                  <TextField fx:id="statusTextField" editable="false" prefHeight="25.0" prefWidth="153.0" visible="false" />
                   <Text layoutX="344.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="End" />
                   <Text layoutX="344.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Selected Classification" />
                   <TextField fx:id="selectedTypeTextField" editable="false" layoutX="343.0" layoutY="226.0" prefHeight="25.0" prefWidth="153.0" />

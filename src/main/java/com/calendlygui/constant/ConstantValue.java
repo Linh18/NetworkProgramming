@@ -6,7 +6,7 @@ public class ConstantValue {
     public static final String NON_PRINTABLE_CHARACTER = "[^\\p{Print}\\p{Space}]";
 
     public static final String TIME_FORMAT = "([01]?[0-9]|2[0-3]):[0-5][0-9]";
-    public static final String HOST_ADDRESS = "172.20.10.3";
+    public static final String HOST_ADDRESS = "192.168.0.101";
     public static final String COMMAND_DELIMITER = ";";
     public static final String FIELD_DELIMITER = "~";
     public static final String LINE_BREAK = "<>";

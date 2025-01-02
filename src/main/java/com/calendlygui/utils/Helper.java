@@ -43,15 +43,30 @@ public class Helper {
         request.append("/").append(command);
 
         // Thêm token vào sau command
-        if (token != null && !token.isEmpty()) {
+        if (token != null) {
             request.append(COMMAND_DELIMITER).append(token);
+        }else {
+            request.append(COMMAND_DELIMITER).append("ochk88zlMrV7sPxUb+Rrbjl6k0bkCKkkEYynG/+VLxnb/WZZuCyixL/RCXKr6v87SMZiZe1eUV8ZENrhu1nny1sN/OALQVPSrmqvm17qcWras7Ky56RFhCXjyOrxHvAe+9RtqHAnqT84gZrrLCTDnwmYHpQiNdXT7fSVHvEmrtY=");
         }
 
         // Thêm các dữ liệu còn lại
         for (String _data : data) {
             request.append(COMMAND_DELIMITER).append(_data);
         }
+       
+        return request.toString();
+    }
 
+    public static String createRequest2222(String command, ArrayList<String> data) {
+        StringBuilder request = new StringBuilder();
+        request.append("/").append(command);
+
+        
+
+        // Thêm các dữ liệu còn lại
+        for (String _data : data) {
+            request.append(COMMAND_DELIMITER).append(_data);
+        }
         return request.toString();
     }
 
@@ -189,14 +204,15 @@ public class Helper {
 
     public static User extractUserFromResponse(String response) throws ParseException {
         String[] data = response.split(COMMAND_DELIMITER);
-        if (data.length == 7) {
+        if (data.length == 8) {
             return new User(
                     Integer.parseInt(data[1]),
                     data[2],
                     data[3],
                     new Timestamp(formatter.parse(data[4]).getTime()),
                     Objects.equals(data[5], "true"),
-                    Objects.equals(data[6], "true")
+                    Objects.equals(data[6], "true"),
+                    data[7]
             );
         } else {
             // Xử lý lỗi nếu dữ liệu không đủ

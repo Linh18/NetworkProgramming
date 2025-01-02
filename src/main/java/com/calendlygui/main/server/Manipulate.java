@@ -11,11 +11,20 @@ import static com.calendlygui.main.server.ServerHandler.*;
 import static com.calendlygui.utils.Helper.createResponse;
 
 
+
 public class Manipulate {
 
-    public static void register(String[] registerInfo, String token, PrintWriter out) {
+    
+    
+    public static void register(String[] registerInfo, PrintWriter out) {
         if (registerInfo.length == 6) {
             if ((!registerInfo[4].equals("false") && !registerInfo[4].equals("true") || !registerInfo[5].equals("false") && !registerInfo[5].equals("true")) && !Validate.checkEmailFormat(registerInfo[1])) {
+                System.out.println(registerInfo[4].equals("false"));
+                System.out.println(registerInfo[5].equals("false"));
+                System.out.println(registerInfo[4].equals("true"));
+                System.out.println(registerInfo[5].equals("true"));
+                System.out.println(Validate.checkEmailFormat(registerInfo[1]));
+                
                 out.println(INCORRECT_FORMAT);
             } else {
                 String email = registerInfo[1];
@@ -33,12 +42,14 @@ public class Manipulate {
         }
     }
 
-    public static void signIn(String[] loginInfo, String token,PrintWriter out) {
+    public static void signIn(String[] loginInfo,PrintWriter out) {
         if (loginInfo.length == 3) {
             String email = loginInfo[1];
             String password = loginInfo[2];
-
+           
+            String token = Authenticate.gen_token(email);
             String result = Authenticate.signIn(email, password);
+            result = result + ";" + token ;
             System.out.println("Result: " + result);
             out.println(result);
         } else {
@@ -48,6 +59,7 @@ public class Manipulate {
 
     //TEACHER FUNCTIONS
     public static void createMeeting(String[] data, String token) {
+        Authenticate.verify_token(token);
         if (data.length == 7) {
             int tId = Integer.parseInt(data[1]);
             String name = data[2];
@@ -66,6 +78,7 @@ public class Manipulate {
 
 
     public static void editMeeting(String[] data, String token) {
+        Authenticate.verify_token(token);
         if (data.length == 10) {
             int id = Integer.parseInt(data[1]);
             String name = data[2];
@@ -86,6 +99,7 @@ public class Manipulate {
     }
 
     public static void viewByDate(String[] data, String token) {
+        Authenticate.verify_token(token);
         if (data.length == 3) {
             int tId = Integer.parseInt(data[1]);
             String date = data[2];
@@ -99,6 +113,7 @@ public class Manipulate {
     }
 
     public static void viewUnscheduledAndHappeningMeetings(String[] data, String token) {
+        Authenticate.verify_token(token);
         if (data.length == 2) {
             int tId = Integer.parseInt(data[1]);
 
@@ -111,6 +126,7 @@ public class Manipulate {
     }
 
     public static void addMinute(String[] data, String token) {
+        Authenticate.verify_token(token);
         if (data.length == 3) {
 //            int tId = Integer.parseInt(data[1]);
             int mId = Integer.parseInt(data[1]);
@@ -220,5 +236,7 @@ public class Manipulate {
         System.out.println("Result: " + result);
         out.println(result);
     }
+
+    
 
 }

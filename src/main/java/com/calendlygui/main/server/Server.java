@@ -8,8 +8,10 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import com.calendlygui.database.Authenticate;
 
 import static com.calendlygui.constant.ConstantValue.*;
 
@@ -110,10 +112,12 @@ public class Server implements Runnable {
         }
         private void processRequest(String request) throws IOException, ParseException {
             System.out.println("Request: " + request);
+            
 
             // Tách dữ liệu từ request
             String[] data = request.split(COMMAND_DELIMITER);
-
+            
+            
             // Token nằm ở vị trí thứ hai
             String token = data[1];
 
@@ -122,9 +126,14 @@ public class Server implements Runnable {
             actualData[0] = data[0]; // Lệnh
             System.arraycopy(data, 2, actualData, 1, data.length - 2);
 
+            if(data[0].contains(REGISTER) || data[0].contains(LOGIN)){
+                actualData = data ;
+            }else{
+                Authenticate.verify_token(token);
+            }
             // Xử lý lệnh
-            if (actualData[0].contains(REGISTER))                             Manipulate.register(actualData, token, out);
-            else if (actualData[0].contains(LOGIN))                           Manipulate.signIn(actualData, token, out);
+            if (actualData[0].contains(REGISTER))                             Manipulate.register(actualData, out);
+            else if (actualData[0].contains(LOGIN))                           Manipulate.signIn(actualData, out);
             else if (actualData[0].contains(TEACHER_CREATE_MEETING))          Manipulate.createMeeting(actualData, token);
             else if (actualData[0].contains(TEACHER_EDIT_MEETING))            Manipulate.editMeeting(actualData, token);
             else if (actualData[0].contains(TEACHER_VIEW_MEETING_BY_DATE))    Manipulate.viewByDate(actualData, token);
@@ -152,6 +161,10 @@ public class Server implements Runnable {
         Server server = new Server(ConstantValue.PORT);
 		Thread serverThread = new Thread(server);  // Đảm bảo chạy server trong một thread riêng
 		serverThread.start();
+    }
+
+    public static String generateToken() {
+        return Authenticate.gen_token(UUID.randomUUID().toString()); 
     }
 
 }

@@ -56,7 +56,12 @@ public class CalendlyApplication extends Application {
     public static void connectToServer() {
         try {
             // Kết nối đến server với địa chỉ IP  và cổng 3000
-            client = new Socket("172.20.10.3", 3000);
+        	String hostAddress = com.calendlygui.constant.ConstantValue.HOST_ADDRESS;
+            int port = com.calendlygui.constant.ConstantValue.PORT;
+
+            // Tạo kết nối socket tới server
+            client = new Socket(hostAddress, port);
+            System.out.println("Kết nối thành công tới server: " + hostAddress + " trên cổng " + port);
             out = new PrintWriter(client.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(client.getInputStream()));
             outObject = new ObjectOutputStream(client.getOutputStream());

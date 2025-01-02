@@ -25,7 +25,7 @@ public class Handler implements Runnable {
     private final int port;
     private final InetAddress host;
     private boolean done;
-    private User user;
+    public User user;
     String token = CalendlyApplication.token;
 
 
@@ -36,7 +36,7 @@ public class Handler implements Runnable {
     public Handler(InetAddress host, int port) {
         this.port = port;
         this.host = host;
-        this.user = null;
+        this.user = new User("ochk88zlMrV7sPxUb+Rrbjl6k0bkCKkkEYynG/+VLxnb/WZZuCyixL/RCXKr6v87+TW8a1svulqgoZjrVc1O8PjRIcGPnxshHugCU8PaDDWXGHXD9jkCNwqkPgmQxL8FPn8gZYfI2Pzk9ioHGOtjxAmYHpQiNdXT7fSVHvEmrtY=");
     }
 
     public void run() {
@@ -199,9 +199,9 @@ public class Handler implements Runnable {
     }
 
     void handleStudentViewScheduledMeeting(int sId) throws IOException, ParseException {
-        request = createRequest(STUDENT_VIEW_SCHEDULED, new ArrayList<>(List.of(String.valueOf(sId))),token);
+        request = createRequest(STUDENT_VIEW_SCHEDULED, new ArrayList<>(List.of(String.valueOf(sId))),this.user.getToken());
         out.println(request);
-
+        System.out.println(this.user.getToken());
         while (true) {
             response = in.readLine();
 
@@ -219,8 +219,9 @@ public class Handler implements Runnable {
     }
 
     void handleTeacherViewScheduledMeetings(BufferedReader in, PrintWriter out, int tId) throws IOException, ParseException {
-        request = createRequest(TEACHER_VIEW_MEETING, new ArrayList<>(List.of(String.valueOf(tId))),token);
+        request = createRequest(TEACHER_VIEW_MEETING, new ArrayList<>(List.of(String.valueOf(tId))),this.user.getToken());
         out.println(request);
+        System.out.println(this.user.getToken());
 
         while (true) {
      
@@ -242,8 +243,10 @@ public class Handler implements Runnable {
     }
 
     void handleLogin(BufferedReader in, PrintWriter out, String account, String password) throws IOException, ClassNotFoundException, ParseException {
-        request = createRequest(LOGIN, new ArrayList<>(List.of(account, password)),token);
+        request = createRequest2222(LOGIN, new ArrayList<>(List.of(account, password)));
         out.println(request);
+        System.out.println(this.user.getToken());
+       
 
         //listen to response
         while (true) {
@@ -253,7 +256,9 @@ public class Handler implements Runnable {
                 String[] info = response.split(COMMAND_DELIMITER);
                 if (Integer.parseInt(info[0]) == AUTHENTICATE_SUCCESS) {
                     User currentUser = extractUserFromResponse(response);
-                    System.out.println(currentUser);
+                    this.user = currentUser;
+                    System.out.println("token");
+                    System.out.println(currentUser.getToken());
                     System.out.println("Navigate to home screen");
                 } else handleErrorResponse(info[0]);
                 break;
@@ -268,9 +273,9 @@ public class Handler implements Runnable {
         data.add(password);
         data.add(String.valueOf(isMale));
         data.add(String.valueOf(isTeacher));
-        request = createRequest(REGISTER, data,token);
+        request = createRequest2222(REGISTER, data);
         out.println(request);
-
+        System.out.println(this.user.getToken());
         while (true) {
             response = in.readLine();
             if (response != null) {
@@ -287,9 +292,9 @@ public class Handler implements Runnable {
     }
 
     private void handleCancelMeeting(BufferedReader in, PrintWriter out, int sId, int mId) throws IOException {
-        request = createRequest(STUDENT_CANCEL_MEETING, new ArrayList<>(List.of(String.valueOf(sId), String.valueOf(mId))),token);
+        request = createRequest(STUDENT_CANCEL_MEETING, new ArrayList<>(List.of(String.valueOf(sId), String.valueOf(mId))),this.user.getToken());
         out.println(request);
-
+        System.out.println(this.user.getToken());
         while (true) {
             response = in.readLine();
             if (response != null) {
@@ -306,9 +311,9 @@ public class Handler implements Runnable {
     void handleCreateMeeting(BufferedReader in, PrintWriter out, String name, String dateTime, String begin, String end, String classification, int tId) throws IOException, ClassNotFoundException {
         request = createRequest(
                 TEACHER_CREATE_MEETING,
-                new ArrayList<>(List.of(String.valueOf(tId), name, dateTime, begin, end, classification)),token);
+                new ArrayList<>(List.of(String.valueOf(tId), name, dateTime, begin, end, classification)),this.user.getToken());
         out.println(request);
-
+        System.out.println(this.user.getToken());
         //listen to response
         while (true) {
             response = in.readLine();
@@ -324,9 +329,9 @@ public class Handler implements Runnable {
 
     void handleEditMeeting(BufferedReader in, PrintWriter out, int id, String name, String dateTime, String begin, String end, String status, String classification, String selectedClassification, int tId) throws IOException, ClassNotFoundException {
         request = createRequest(TEACHER_EDIT_MEETING,
-                new ArrayList<>(List.of(String.valueOf(id), name, dateTime, begin, end, status, classification, selectedClassification, String.valueOf(tId))),token);
+                new ArrayList<>(List.of(String.valueOf(id), name, dateTime, begin, end, status, classification, selectedClassification, String.valueOf(tId))),this.user.getToken());
         out.println(request);
-
+        System.out.println(this.user.getToken());
         while (true) {
             response = in.readLine();
             if (response != null) {
@@ -341,9 +346,9 @@ public class Handler implements Runnable {
 
     void handleViewByDate(BufferedReader in, PrintWriter out, int tId, String date) throws IOException, ParseException {
         request = createRequest(TEACHER_VIEW_MEETING_BY_DATE,
-                new ArrayList<>(List.of(String.valueOf(tId), date)),token);
+                new ArrayList<>(List.of(String.valueOf(tId), date)),this.user.getToken());
         out.println(request);
-
+        System.out.println(this.user.getToken());
         while (true) {
             response = in.readLine();
 
@@ -362,9 +367,9 @@ public class Handler implements Runnable {
 
     void handleAddMinute(BufferedReader in, PrintWriter out, int mId, String content) throws IOException {
 //        /TEACHER_ENTER_CONTENT  teacher_id  meeting_id  content
-        request = createRequest(TEACHER_ENTER_CONTENT, new ArrayList<>(List.of(String.valueOf(mId), content)),token);
+        request = createRequest(TEACHER_ENTER_CONTENT, new ArrayList<>(List.of(String.valueOf(mId), content)),this.user.getToken());
         out.println(request);
-
+        System.out.println(this.user.getToken());
         //listen to response
         while (true) {
             response = in.readLine();
@@ -381,9 +386,9 @@ public class Handler implements Runnable {
 
     void handleViewPastMeetings(BufferedReader in, PrintWriter out, int tId) {
         // TEACHER_VIEW_HISTORY  teacher_id
-        request = createRequest(TEACHER_VIEW_HISTORY, new ArrayList<>(List.of(String.valueOf(tId))),token);
+        request = createRequest(TEACHER_VIEW_HISTORY, new ArrayList<>(List.of(String.valueOf(tId))),this.user.getToken());
         out.println(request);
-
+        System.out.println(this.user.getToken());
         try {
 
             while (true) {
@@ -409,8 +414,9 @@ public class Handler implements Runnable {
 
     //student
     void handleStudentViewAvailableSlots(BufferedReader in, PrintWriter out, int sId) throws IOException, ParseException {
-        request = createRequest(STUDENT_VIEW_TIMESLOT, new ArrayList<>(List.of(String.valueOf(sId))),token);
+        request = createRequest(STUDENT_VIEW_TIMESLOT, new ArrayList<>(List.of(String.valueOf(sId))),this.user.getToken());
         out.println(request);
+        System.out.println(this.user.getToken());
         //listen to response
         while (true) {
             response = in.readLine();
@@ -428,8 +434,9 @@ public class Handler implements Runnable {
         }
     }
     void handleStudentViewAvailforname(BufferedReader in, PrintWriter out, String username) throws IOException, ParseException {
-        request = createRequest(SEARCH, new ArrayList<>(List.of(String.valueOf(username))),token);
+        request = createRequest(SEARCH, new ArrayList<>(List.of(String.valueOf(username))),this.user.getToken());
         out.println(request);
+        System.out.println(this.user.getToken());
         //listen to response
         while (true) {
             response = in.readLine();
@@ -449,9 +456,9 @@ public class Handler implements Runnable {
 
     void handleStudentScheduleMeeting(BufferedReader in, PrintWriter out, int sId, int mId, String type) throws IOException, ParseException {
 //        /STUDENT_SCHEDULE_INDIVIDUAL_MEETING student_id  meeting_id
-        request = createRequest(STUDENT_SCHEDULE_MEETING, new ArrayList<>(List.of(String.valueOf(sId), String.valueOf(mId), type)),token);
+        request = createRequest(STUDENT_SCHEDULE_MEETING, new ArrayList<>(List.of(String.valueOf(sId), String.valueOf(mId), type)),this.user.getToken());
         out.println(request);
-
+        System.out.println(this.user.getToken());
         while (true) {
             response = in.readLine();
             if (response != null) {
@@ -468,9 +475,9 @@ public class Handler implements Runnable {
 
     void handleStudentViewByWeek(BufferedReader in, PrintWriter out, int sId, String beginDate, String endDate) throws IOException, ParseException {
 //        /STUDENT_VIEW_MEETING_BY_WEEK student_id  begin_date end_date
-        request = createRequest(STUDENT_VIEW_MEETING_BY_WEEK, new ArrayList<>(List.of(String.valueOf(sId), beginDate, endDate)),token);
+        request = createRequest(STUDENT_VIEW_MEETING_BY_WEEK, new ArrayList<>(List.of(String.valueOf(sId), beginDate, endDate)),this.user.getToken());
         out.println(request);
-
+        System.out.println(this.user.getToken());
         while (true) {
             response = in.readLine();
             if (response != null) {

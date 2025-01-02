@@ -2,6 +2,7 @@ package com.calendlygui.utils;
 
 import com.calendlygui.CalendlyApplication;
 import com.calendlygui.controller.LoginController;
+import com.calendlygui.model.entity.Meeting;
 
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -137,5 +139,22 @@ public class Controller {
             }
         });
     }
+
+	public static void navigateToOtherStage(TableView<Meeting> meetingTable, String fxmlFile, String title) {
+		 Platform.runLater(() -> {
+	            try {
+	                Stage stage = (Stage) meetingTable.getScene().getWindow();
+	                FXMLLoader loader = new FXMLLoader(CalendlyApplication.class.getResource(fxmlFile));
+	                Scene scene = new Scene(loader.load());
+	                stage.setTitle(title);
+	                stage.setScene(scene);
+	            } catch (IOException e) {
+	                throw new RuntimeException(e);
+	            }
+	            ;
+	        });
+		
+	}
+    
 
 }

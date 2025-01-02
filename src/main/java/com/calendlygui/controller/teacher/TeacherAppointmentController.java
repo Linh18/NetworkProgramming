@@ -6,6 +6,7 @@ import com.calendlygui.constant.GeneralMessage;
 import com.calendlygui.constant.TimeslotMessage;
 import com.calendlygui.model.entity.Content;
 import com.calendlygui.model.entity.Meeting;
+import com.calendlygui.model.entity.User;
 import com.calendlygui.utils.Controller;
 import com.calendlygui.utils.Format;
 import com.calendlygui.utils.SendData;
@@ -89,6 +90,26 @@ public class TeacherAppointmentController implements Initializable {
 
     @FXML
     private TableColumn<Meeting, String> typeTableColumn;
+    
+    @FXML
+    private TableColumn<Meeting, String> nameTableColumn;
+    
+    @FXML
+    private TableColumn<Meeting, String> createdTableColumn;
+    @FXML 
+    private TableView <User> studentTable;
+    @FXML
+    private TableColumn<User, String> StudentnameColumn;
+
+    @FXML
+    private TableColumn<User, String> studentidColumn;
+
+    @FXML
+    private TableColumn<User, String> emailcolumn;
+    
+    @FXML
+    private TableColumn<User, String> gendercolumn;
+
 
     @FXML
     private ComboBox<String> filterCombobox;
@@ -116,9 +137,6 @@ public class TeacherAppointmentController implements Initializable {
 
     @FXML
     private TextField beginTextField;
-
-    @FXML
-    private TextField createdTextField;
 
     @FXML
     private TextField statusTextField;
@@ -421,23 +439,30 @@ public class TeacherAppointmentController implements Initializable {
     }
 
     private void showScheduledMeeting() {
+    	nameTableColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
         beginTableColumn.setCellValueFactory(data -> new SimpleStringProperty(Format.getStringFormatFromTimestamp(data.getValue().getOccurDatetime(), "HH:mm")));
         dateTableColumn.setCellValueFactory(data -> new SimpleStringProperty(Format.getStringFormatFromTimestamp(data.getValue().getFinishDatetime(), "dd/MM/yyyy")));
         endTableColumn.setCellValueFactory(data -> new SimpleStringProperty(Format.getStringFormatFromTimestamp(data.getValue().getFinishDatetime(), "HH:mm")));
-        selectedTypeTableColumn.setCellValueFactory(data -> new SimpleStringProperty(Objects.equals(data.getValue().getSelectedClassification(), "null") ? "Not yet" : Format.writeFirstCharacterInUppercase(data.getValue().getSelectedClassification())));
+        selectedTypeTableColumn.setCellValueFactory(data -> new SimpleStringProperty(
+                Objects.equals(data.getValue().getSelectedClassification(), "null") ? "Not yet" :
+                        Format.writeFirstCharacterInUppercase(data.getValue().getSelectedClassification())));
         typeTableColumn.setCellValueFactory(data -> new SimpleStringProperty(Format.writeFirstCharacterInUppercase(data.getValue().getClassification())));
         statusTableColumn.setCellValueFactory(data -> new SimpleStringProperty(Format.writeFirstCharacterInUppercase(data.getValue().getStatus())));
+        createdTableColumn.setCellValueFactory(data -> new SimpleStringProperty(Format.getStringFormatFromTimestamp(data.getValue().getEstablishedDatetime(), "dd/MM/yyyy")));
 
         ObservableList<Meeting> data = FXCollections.observableArrayList(meetings);
 
         meetingTable.setItems(data);
+        
 
         meetingTable.setRowFactory(tv -> {
             TableRow<Meeting> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (!row.isEmpty())) {
+
                     Meeting rowData = row.getItem();
                     currentMeeting = rowData;
+                    showStudentList();
 //                    for(Content c : rowData.getContents()){
 //                        System.out.println(c.getContent());
 //                    }
@@ -446,12 +471,10 @@ public class TeacherAppointmentController implements Initializable {
                     endTextField.setText(Format.getStringFormatFromTimestamp(rowData.getFinishDatetime(), "HH:mm"));
                     nameTextField.setText(rowData.getName());
                     occurDatePicker.setValue(Format.getLocalDateFromTimestamp(rowData.getOccurDatetime()));
-                    createdTextField.setText(Format.getStringFormatFromTimestamp(rowData.getEstablishedDatetime(), "dd/MM/yyyy"));
 //                    typeCombobox.getItems().clear();
 //                    typeCombobox.getItems().add(Format.writeFirstCharacterInUppercase(rowData.getClassification()));
 //                    typeCombobox.setValue(Format.writeFirstCharacterInUppercase(rowData.getClassification()));
                     selectedTypeTextField.setText(Objects.equals(rowData.getSelectedClassification(), "null") ? "Not yet" : Format.writeFirstCharacterInUppercase(rowData.getSelectedClassification()));
-                    statusTextField.setText(Format.writeFirstCharacterInUppercase(rowData.getStatus()));
                     detailPane.setVisible(true);
 
                     if (!Objects.equals(rowData.getStatus(), READY)) {
@@ -476,10 +499,22 @@ public class TeacherAppointmentController implements Initializable {
                         typeCombobox.setValue(Format.writeFirstCharacterInUppercase(rowData.getClassification()));
                     }
                     showContent();
+                    
                 }
             });
             return row;
         });
+    }
+    private void showStudentList() {
+    	StudentnameColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getEmail()));
+    	studentidColumn.setCellValueFactory(data -> 
+        new SimpleStringProperty(String.valueOf(data.getValue().getId())));
+        emailcolumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getUsername()));
+        gendercolumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getGender() ? "Male" : "Female"));
+
+        ObservableList<User> users = FXCollections.observableArrayList(currentMeeting.getStudents());
+
+        studentTable.setItems(users);
     }
 
     private void filter() {

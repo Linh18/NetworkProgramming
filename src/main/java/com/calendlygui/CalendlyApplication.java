@@ -20,7 +20,6 @@ public class CalendlyApplication extends Application {
     public static ObjectInputStream inObject;
     public static ObjectOutputStream outObject;
 
-    
     @Override
     public void start(Stage stage) {
         try {
@@ -52,5 +51,19 @@ public class CalendlyApplication extends Application {
 
     public static String generateToken() {
         return UUID.randomUUID().toString(); 
+    }
+    
+    public static void connectToServer() {
+        try {
+            // Kết nối đến server với địa chỉ IP  và cổng 3000
+            client = new Socket("172.20.10.3", 3000);
+            out = new PrintWriter(client.getOutputStream(), true);
+            in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            outObject = new ObjectOutputStream(client.getOutputStream());
+            inObject = new ObjectInputStream(client.getInputStream());
+            System.out.println("Đã kết nối đến server!");
+        } catch (IOException e) {
+            System.out.println("Không thể kết nối đến server: " + e.getMessage());
+        }
     }
 }

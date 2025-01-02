@@ -379,9 +379,9 @@ public class TeacherHistoryController implements Initializable {
     }
 
     private void showStudentList() {
-        studentNameTableColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getUsername()));
+        studentNameTableColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getEmail()));
         studentGenderTableColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getGender() ? "Male" : "Female"));
-        studentEmailTableColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getEmail()));
+        studentEmailTableColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getUsername()));
 
         ObservableList<User> users = FXCollections.observableArrayList(currentMeeting.getStudents());
 

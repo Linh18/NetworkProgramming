@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -18,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="636.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calendlygui.controller.teacher.TeacherAppointmentController">
+<AnchorPane prefHeight="636.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.calendlygui.controller.teacher.TeacherAppointmentDetailController">
     <children>
         <VBox prefHeight="636.0" prefWidth="215.0" style="-fx-background-color: grey;">
             <children>
@@ -129,18 +127,6 @@
             </children></VBox>
         <Pane layoutX="250.0" prefHeight="550.0" prefWidth="650.0">
             <children>
-            <TableView fx:id="meetingTable" layoutX="-20.0" layoutY="209.0" prefHeight="301.0" prefWidth="659.0">
-               <columns>
-                  <TableColumn fx:id="nameTableColumn" prefWidth="100.80003356933594" text="Name" />
-                  <TableColumn fx:id="dateTableColumn" prefWidth="70.39996337890625" text="Date" />
-                  <TableColumn fx:id="beginTableColumn" prefWidth="52.79998779296875" text="Begin" />
-                  <TableColumn fx:id="endTableColumn" prefWidth="53.60003662109375" text="End" />
-                  <TableColumn fx:id="typeTableColumn" prefWidth="89.5999755859375" text="Classification" />
-                  <TableColumn fx:id="selectedTypeTableColumn" prefWidth="140.79998779296875" text="Selected Classification" />
-                  <TableColumn fx:id="statusTableColumn" prefWidth="53.60009765625" text="Status" />
-                  <TableColumn fx:id="createdTableColumn" prefWidth="96.7999267578125" text="Created Date" />
-               </columns>
-            </TableView>
             <Pane layoutX="-34.0" prefHeight="100.0" prefWidth="687.0" style="-fx-background-color: black;">
                <children>
                   <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="561.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
@@ -155,21 +141,70 @@
                   </Text>
                </children>
             </Pane>
-            <DatePicker fx:id="filterDatetime" layoutX="351.0" layoutY="144.0" />
-            <ComboBox fx:id="filterCombobox" layoutX="175.0" layoutY="144.0" prefWidth="150.0">
-               <items>
-                  <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="All" />
-                     <String fx:value="By date" />
-                  </FXCollections>
-               </items>
-            </ComboBox>
-            <Text layoutX="118.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Filter">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <Text fx:id="errorText" fill="RED" layoutX="40.0" layoutY="523.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="570.0" />
+            <Pane fx:id="detailPane" layoutX="25.0" layoutY="124.0" prefHeight="489.0" prefWidth="570.0" style="-fx-background-radius: 5; -fx-border-color: black; -fx-background-color: white;">
+               <children>
+                  <TableView fx:id="studentTable" layoutX="85.0" layoutY="281.0" prefHeight="130.0" prefWidth="425.0">
+                    <columns>
+                      <TableColumn fx:id="StudentnameColumn" prefWidth="108.800048828125" text="Student name" />
+                      <TableColumn fx:id="studentidColumn" prefWidth="73.5999755859375" text="Student ID" />
+                        <TableColumn fx:id="emailcolumn" prefWidth="170.39996337890625" text="Email" />
+                        <TableColumn fx:id="gendercolumn" prefWidth="75.199951171875" text="Gender" />
+                    </columns>
+                  </TableView>
+                  <Text layoutX="84.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Student List" />
+                  <Button fx:id="editButton" layoutX="74.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#editMeeting" prefHeight="30.0" prefWidth="130.0" style="-fx-font-weight: bold;" styleClass="edit-button" stylesheets="@../../style/teacher.css" text="Edit" textFill="WHITE" />
+                  <TextField fx:id="beginTextField" editable="false" layoutX="84.0" layoutY="154.0" prefHeight="25.0" prefWidth="153.0" />
+                  <TextField fx:id="endTextField" editable="false" layoutX="344.0" layoutY="154.0" prefHeight="25.0" prefWidth="153.0" />
+                  <Text layoutX="86.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Begin" />
+                  <Button fx:id="closeButton" layoutX="237.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#closeDialog" prefHeight="30.0" prefWidth="130.0" style="-fx-font-weight: bold;" styleClass="close-button" stylesheets="@../../style/student.css" text="Close" textFill="WHITE" />
+                  <Text layoutX="86.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Classification" />
+                  <Text layoutX="215.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Meeting Detail" textAlignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="86.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Name" />
+                  <TextField fx:id="nameTextField" editable="false" layoutX="181.0" layoutY="43.0" prefHeight="25.0" prefWidth="323.0" />
+                  <Text layoutX="344.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="End" />
+                  <Text layoutX="344.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Selected Classification" />
+                  <TextField fx:id="selectedTypeTextField" editable="false" layoutX="343.0" layoutY="226.0" prefHeight="25.0" prefWidth="153.0" />
+                  <Button fx:id="contentButton" layoutX="397.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#openContentPane" prefHeight="30.0" prefWidth="130.0" style="-fx-font-weight: bold;" styleClass="content-button" stylesheets="@../../style/teacher.css" text="Add Content" textFill="WHITE" />
+                  <DatePicker fx:id="occurDatePicker" editable="false" layoutX="181.0" layoutY="83.0" prefHeight="25.0" prefWidth="323.0" />
+                  <ComboBox fx:id="typeCombobox" layoutX="86.0" layoutY="226.0" prefHeight="25.0" prefWidth="153.0" />
+                  <Text layoutX="86.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Occur date" />
+                  <Text fx:id="nameEditedErrorText" fill="RED" layoutX="182.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="323.0" />
+                  <Text fx:id="occurDateEditedErrorText" fill="RED" layoutX="181.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="323.0" />
+                  <Text fx:id="beginEditedErrorText" fill="RED" layoutX="86.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="153.0" />
+                  <Text fx:id="endEditedErrorText" fill="RED" layoutX="344.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="153.0" />
+                  <Text fx:id="durationDateEditedErrorText" fill="RED" layoutX="86.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="418.33331298828125" />
+                  <Pane fx:id="contentPane" layoutX="63.0" layoutY="7.0" prefHeight="458.0" prefWidth="469.0" style="-fx-background-color: white; -fx-background-radius: 5;" visible="false">
+                     <children>
+                        <Text layoutX="184.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Content" textAlignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Text>
+                        <TableView fx:id="contentTable" layoutX="50.0" layoutY="37.0" prefHeight="119.0" prefWidth="343.0">
+                          <columns>
+                            <TableColumn fx:id="contentCreatedDateColumn" prefWidth="101.33328247070312" text="Created date" />
+                            <TableColumn fx:id="contentColumn" prefWidth="240.33334350585938" text="Content" />
+                          </columns>
+                        </TableView>
+                        <Text layoutX="165.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Add new content">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                        <TextArea fx:id="contentTextArea" layoutX="50.0" layoutY="254.0" prefHeight="46.0" prefWidth="343.0" />
+                        <Button fx:id="closeContentButton" layoutX="264.0" layoutY="328.0" mnemonicParsing="false" onMouseClicked="#closeContentPane" prefHeight="25.0" prefWidth="113.0" style="-fx-font-weight: bold;" styleClass="close-button" stylesheets="@../../style/teacher.css" text="Close" />
+                        <Button fx:id="addContentButton" layoutX="66.0" layoutY="328.0" mnemonicParsing="false" onMouseClicked="#addContent" prefHeight="25.0" prefWidth="113.0" style="-fx-font-weight: bold;" styleClass="add-button" stylesheets="@../../style/teacher.css" text="Add" />
+                        <TextArea fx:id="currentContentTextArea" editable="false" layoutX="50.0" layoutY="171.0" prefHeight="46.0" prefWidth="343.0" />
+                        <Text fx:id="contentErrorText" fill="RED" layoutX="49.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="343.00000000000006" />
+                     </children>
+                  </Pane>
+                  <Text fx:id="errorText" fill="RED" layoutX="-4.0" layoutY="481.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="570.0" />
+               </children>
+            </Pane>
             <Button fx:id="reloadButton" layoutX="600.0" layoutY="115.0" mnemonicParsing="false" onMouseClicked="#reload" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: black;" styleClass="reload-button" stylesheets="@../../style/general.css" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
@@ -179,70 +214,6 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Pane fx:id="detailPane" layoutX="-35.0" layoutY="100.0" prefHeight="536.0" prefWidth="687.0" style="-fx-background-radius: 5; -fx-background-color: white;" visible="false">
-               <children>
-                  <TableView fx:id="studentTable" layoutX="120.0" layoutY="281.0" prefHeight="130.0" prefWidth="425.0">
-                     <columns>
-                        <TableColumn fx:id="StudentnameColumn" prefWidth="108.800048828125" text="Student name" />
-                        <TableColumn fx:id="studentidColumn" prefWidth="73.5999755859375" text="Student ID" />
-                        <TableColumn fx:id="emailcolumn" prefWidth="170.39996337890625" text="Email" />
-                        <TableColumn fx:id="gendercolumn" prefWidth="75.199951171875" text="Gender" />
-                     </columns>
-                  </TableView>
-                  <Text layoutX="120.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Student List" />
-                  <Button fx:id="editButton" layoutX="100.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#editMeeting" prefHeight="30.0" prefWidth="130.0" style="-fx-font-weight: bold;" styleClass="edit-button" stylesheets="@../../style/teacher.css" text="Edit" textFill="WHITE" />
-                  <TextField fx:id="beginTextField" editable="false" layoutX="120.0" layoutY="154.0" prefHeight="25.0" prefWidth="153.0" />
-                  <TextField fx:id="endTextField" editable="false" layoutX="344.0" layoutY="154.0" prefHeight="25.0" prefWidth="153.0" />
-                  <Text layoutX="120.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Begin" />
-                  <Button fx:id="closeButton" layoutX="279.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#closeDialog" prefHeight="30.0" prefWidth="130.0" style="-fx-font-weight: bold;" styleClass="close-button" stylesheets="@../../style/student.css" text="Close" textFill="WHITE" />
-                  <Text layoutX="120.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Classification" />
-                  <Text layoutX="274.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Meeting Detail" textAlignment="CENTER">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="120.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Name" />
-                  <TextField fx:id="nameTextField" editable="false" layoutX="181.0" layoutY="43.0" prefHeight="25.0" prefWidth="323.0" />
-                  <Text layoutX="344.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="End" />
-                  <Text layoutX="344.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Selected Classification" />
-                  <TextField fx:id="selectedTypeTextField" editable="false" layoutX="343.0" layoutY="226.0" prefHeight="25.0" prefWidth="153.0" />
-                  <Button fx:id="contentButton" layoutX="450.0" layoutY="425.0" mnemonicParsing="false" onMouseClicked="#openContentPane" prefHeight="30.0" prefWidth="113.0" style="-fx-font-weight: bold;" styleClass="content-button" stylesheets="@../../style/teacher.css" text="Add Content" textFill="WHITE" />
-                  <DatePicker fx:id="occurDatePicker" editable="false" layoutX="181.0" layoutY="83.0" prefHeight="25.0" prefWidth="323.0" />
-                  <ComboBox fx:id="typeCombobox" layoutX="120.0" layoutY="226.0" prefHeight="25.0" prefWidth="153.0" />
-                  <Text layoutX="120.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Occur date" />
-                  <Text fx:id="nameEditedErrorText" fill="RED" layoutX="182.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="323.0" />
-                  <Text fx:id="occurDateEditedErrorText" fill="RED" layoutX="181.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="323.0" />
-                  <Text fx:id="beginEditedErrorText" fill="RED" layoutX="86.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="153.0" />
-                  <Text fx:id="endEditedErrorText" fill="RED" layoutX="344.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="153.0" />
-                  <Text fx:id="durationDateEditedErrorText" fill="RED" layoutX="120.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="418.33331298828125" />
-                  <Pane fx:id="contentPane" layoutX="63.0" layoutY="1.0" prefHeight="464.0" prefWidth="538.0" style="-fx-background-color: white; -fx-background-radius: 5;" visible="false">
-                     <children>
-                        <Text layoutX="240.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Content" textAlignment="CENTER">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                        </Text>
-                        <TableView fx:id="contentTable" layoutX="50.0" layoutY="37.0" prefHeight="119.0" prefWidth="452.0">
-                           <columns>
-                              <TableColumn fx:id="contentCreatedDateColumn" prefWidth="101.33328247070312" text="Created date" />
-                              <TableColumn fx:id="contentColumn" prefWidth="240.33334350585938" text="Content" />
-                           </columns>
-                        </TableView>
-                        <Text layoutX="221.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Add new content">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Text>
-                        <TextArea fx:id="contentTextArea" layoutX="50.0" layoutY="300.0" prefHeight="46.0" prefWidth="452.0" />
-                        <Button fx:id="closeContentButton" layoutX="286.0" layoutY="328.0" mnemonicParsing="false" onMouseClicked="#closeContentPane" prefHeight="25.0" prefWidth="113.0" style="-fx-font-weight: bold;" styleClass="close-button" stylesheets="@../../style/teacher.css" text="Close" />
-                        <Button fx:id="addContentButton" layoutX="146.0" layoutY="328.0" mnemonicParsing="false" onMouseClicked="#addContent" prefHeight="25.0" prefWidth="113.0" style="-fx-font-weight: bold;" styleClass="add-button" stylesheets="@../../style/teacher.css" text="Add" />
-                        <TextArea fx:id="currentContentTextArea" editable="false" layoutX="50.0" layoutY="171.0" prefHeight="111.0" prefWidth="452.0" />
-                        <Text fx:id="contentErrorText" fill="RED" layoutX="49.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="343.00000000000006" />
-                     </children>
-                  </Pane>
-                  <Text fx:id="errorText1" fill="RED" layoutX="-4.0" layoutY="481.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="570.0" />
-               </children>
-            </Pane>
             </children></Pane>
     </children>
 </AnchorPane>

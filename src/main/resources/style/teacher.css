@@ -20,7 +20,7 @@
 }
 
 .edit-button{
-    -fx-background-color:blue;
+    -fx-background-color:#304873;;
     -fx-font-size: 13;
     -fx-text-fill:white;
 }
@@ -32,7 +32,7 @@
 }
 
 .content-button{
-    -fx-background-color:orange;
+    -fx-background-color:#ce1e1e;
     -fx-font-size: 13;
     -fx-text-fill:white;
 }

@@ -43,7 +43,7 @@ public class Helper {
         request.append("/").append(command);
 
         // Thêm token vào sau command
-        if (token != null && !token.isEmpty()) {
+        if (token != null) {
             request.append(COMMAND_DELIMITER).append(token);
         }
 
@@ -51,7 +51,21 @@ public class Helper {
         for (String _data : data) {
             request.append(COMMAND_DELIMITER).append(_data);
         }
+        System.out.print("token  client : ");
+        System.out.print(token);
+        return request.toString();
+    }
 
+    public static String createRequest2222(String command, ArrayList<String> data) {
+        StringBuilder request = new StringBuilder();
+        request.append("/").append(command);
+
+        
+
+        // Thêm các dữ liệu còn lại
+        for (String _data : data) {
+            request.append(COMMAND_DELIMITER).append(_data);
+        }
         return request.toString();
     }
 

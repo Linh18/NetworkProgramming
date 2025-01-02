@@ -28,7 +28,7 @@ public class Authenticate {
             String payload = "{"
                     + "\"email\":\"" + email + "\","
                     + "\"issuedAt\":\"" + Instant.now().toString() + "\","
-                    + "\"expiry\":\"" + Instant.now().plusSeconds(3600).toString() + "\""
+                    + "\"expiry\":\"" + Instant.now().plusSeconds(360000).toString() + "\""
                     + "}";
 
             // Encrypt the payload using AES

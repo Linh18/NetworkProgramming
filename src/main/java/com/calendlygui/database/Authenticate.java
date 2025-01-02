@@ -44,7 +44,7 @@ public class Authenticate {
     }
 
     // Method to verify a token
-    public static String verify_token(String token) {
+    public static void verify_token(String token) {
         try {
             // Decode the Base64 token
             byte[] decodedToken = Base64.getDecoder().decode(token);
@@ -55,10 +55,10 @@ public class Authenticate {
             byte[] decryptedPayload = cipher.doFinal(decodedToken);
 
             // Return the decrypted payload as a string
-            return new String(decryptedPayload);
+           
         } catch (Exception e) {
-            System.out.println("Invalid token: " + e.getMessage());
-            return null; // Return null if the token is invalid
+            System.out.println("token: " + e.getMessage());
+           
         }
     }
 

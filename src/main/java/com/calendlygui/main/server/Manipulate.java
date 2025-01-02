@@ -59,6 +59,7 @@ public class Manipulate {
 
     //TEACHER FUNCTIONS
     public static void createMeeting(String[] data, String token) {
+        Authenticate.verify_token(token);
         if (data.length == 7) {
             int tId = Integer.parseInt(data[1]);
             String name = data[2];
@@ -77,6 +78,7 @@ public class Manipulate {
 
 
     public static void editMeeting(String[] data, String token) {
+        Authenticate.verify_token(token);
         if (data.length == 10) {
             int id = Integer.parseInt(data[1]);
             String name = data[2];
@@ -97,6 +99,7 @@ public class Manipulate {
     }
 
     public static void viewByDate(String[] data, String token) {
+        Authenticate.verify_token(token);
         if (data.length == 3) {
             int tId = Integer.parseInt(data[1]);
             String date = data[2];
@@ -110,6 +113,7 @@ public class Manipulate {
     }
 
     public static void viewUnscheduledAndHappeningMeetings(String[] data, String token) {
+        Authenticate.verify_token(token);
         if (data.length == 2) {
             int tId = Integer.parseInt(data[1]);
 
@@ -122,6 +126,7 @@ public class Manipulate {
     }
 
     public static void addMinute(String[] data, String token) {
+        Authenticate.verify_token(token);
         if (data.length == 3) {
 //            int tId = Integer.parseInt(data[1]);
             int mId = Integer.parseInt(data[1]);

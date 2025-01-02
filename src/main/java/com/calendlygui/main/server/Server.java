@@ -8,8 +8,10 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import com.calendlygui.database.Authenticate;
 
 import static com.calendlygui.constant.ConstantValue.*;
 
@@ -128,7 +130,7 @@ public class Server implements Runnable {
                 actualData = data ;
             }else{
                 System.out.print("token   : ");
-                System.out.println(token);
+                System.out.println(generateToken());
             }
             
 
@@ -162,6 +164,10 @@ public class Server implements Runnable {
         Server server = new Server(ConstantValue.PORT);
 		Thread serverThread = new Thread(server);  // Đảm bảo chạy server trong một thread riêng
 		serverThread.start();
+    }
+
+    public static String generateToken() {
+        return Authenticate.gen_token(UUID.randomUUID().toString()); 
     }
 
 }

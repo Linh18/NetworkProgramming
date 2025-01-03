@@ -222,20 +222,6 @@ public class StudentScheduleController implements Initializable {
         Thread receiveThread = getReceiveThread();
         receiveThread.start();
 
-//        meetings.add(new Meeting(1, 1, "First Meeting", Format.createTimestamp(2023, 12, 25, 8, 30),
-//                Format.createTimestamp(2023, 12, 26, 8, 30),
-//                Format.createTimestamp(2023, 12, 26, 8, 50), "Both","Pending"));
-//        meetings.add(new Meeting(2, 2, "Second Meeting", Format.createTimestamp(2023, 12, 25, 8, 30),
-//                        Format.createTimestamp(2023, 12, 26, 8, 30),
-//                        Format.createTimestamp(2023, 12, 26, 8, 50), "Group", "Pending")
-//                );
-//        meetings.add(new Meeting(3, 1, "Third Meeting", Format.createTimestamp(2023, 12, 27, 8, 30),
-//                Format.createTimestamp(2024, 1, 5, 6, 20),
-//                Format.createTimestamp(2024, 1, 5, 6, 50), "Individual", "Pending"));
-//        filterCombobox.setValue("All");
-//        filterDatetime.setVisible(false);
-//        showScheduledMeeting();
-//        filterCombobox();
     }
 
     private Thread getReceiveThread(){

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Meeting Scheduler
 
 ## Overview
@@ -56,3 +57,7 @@ Here is a step-by-step guide for running your application based on the steps you
 2. After the server is up, run the `CalendlyApplication.java` file to start the main application.
 3. The application should now be connected to the database and running on the specified server.
 
+=======
+# NetworkProgramming
+Group 1
+>>>>>>> 829b1af99c05415a59a0ae8ca08c65ca90ec121c

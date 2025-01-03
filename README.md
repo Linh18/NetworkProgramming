@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Meeting Scheduler
 
 ## Overview
@@ -60,4 +60,3 @@ Here is a step-by-step guide for running your application based on the steps you
 =======
 # NetworkProgramming
 Group 1
->>>>>>> 829b1af99c05415a59a0ae8ca08c65ca90ec121c
